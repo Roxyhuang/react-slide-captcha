@@ -1,0 +1,51 @@
+{
+  "name": "react-slide-captcha",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react": "^16.4.14",
+    "@types/react-dom": "^16.0.7",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.3",
+    "@types/node": "^9.4.6",
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
+    "@types/webpack": "^3.8.8",
+    "babel-loader": "^7.1.3",
+    "css-loader": "^0.28.10",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "html-loader": "^1.0.0-alpha.0",
+    "html-webpack-plugin": "^3.0.4",
+    "postcss": "^6.0.19",
+    "postcss-browser-reporter": "^0.5.0",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^11.1.0",
+    "postcss-loader": "^2.1.1",
+    "postcss-reporter": "^5.0.0",
+    "postcss-url": "^7.3.1",
+    "react-hot-loader": "^4.0.0",
+    "style-loader": "^0.20.2",
+    "ts-loader": "^4.0.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "tslint-loader": "^3.6.0",
+    "typescript": "^2.7.2",
+    "url-loader": "^1.0.0-beta.0",
+    "webpack": "^4.20.2",
+    "webpack-cleanup-plugin": "^0.5.1",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.0",
+    "webpack-hot-middleware": "^2.21.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development --hot --progress --colors --port 3000 --open",
+    "build": "webpack -p --progress --colors",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,css}\""
+  }
+}

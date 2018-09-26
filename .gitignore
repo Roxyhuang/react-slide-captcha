@@ -1,0 +1,16 @@
+debug.log*
+npm-debug.log*
+*/node_modules/
+/node_modules/
+*/dist/
+dist/*
+*/dist-stage/
+.vscode/
+.idea/
+_build/
+.project/
+package-lock.json
+*/qshell_windows_amd64.exe
+.DS_Store
+*.bak
+*.bak/
