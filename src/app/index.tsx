@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.css';
 
 export interface HeaderState {
   /* empty */
@@ -12,7 +13,7 @@ export class App extends React.Component<HeaderState> {
   render() {
     return (
       <header>
-        <div onClick={() => this.handleSave('123')}>123</div>
+        <div className="test" onClick={() => this.handleSave('123')}>123</div>
       </header>
     );
   }

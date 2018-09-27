@@ -11,7 +11,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 
-module.exports = {
+var webpackConfig;
+
+webpackConfig = {
   context: sourcePath,
   entry: {
     main: './main.tsx'
@@ -49,7 +51,7 @@ module.exports = {
             {
               loader: 'css-loader',
               query: {
-                modules: true,
+                modules: false,
                 sourceMap: !isProduction,
                 importLoaders: 1,
                 localIdentName: '[local]__[hash:base64:5]'
@@ -106,22 +108,9 @@ module.exports = {
     new WebpackCleanupPlugin(),
     new ExtractTextPlugin({
       filename: 'styles.css',
-      disable: !isProduction
-    }),
-    new HtmlWebpackPlugin({
-      template: '../index.html',
       disable: isProduction
-    })
+    }),
   ],
-  devServer: {
-    contentBase: sourcePath,
-    hot: true,
-    inline: true,
-    historyApiFallback: {
-      disableDotRule: true
-    },
-    stats: 'minimal'
-  },
   devtool: 'cheap-module-eval-source-map',
   node: {
     // workaround for webpack-dev-server issue
@@ -130,3 +119,22 @@ module.exports = {
     net: 'empty'
   }
 };
+
+if (!isProduction) {
+    webpackConfig.plugins.push(
+      new HtmlWebpackPlugin({
+        template: '../index.html',
+      })
+    )
+  webpackConfig.devServer = {
+    contentBase: sourcePath,
+    hot: true,
+    inline: true,
+    historyApiFallback: {
+      disableDotRule: true
+    },
+    stats: 'minimal'
+  }
+}
+
+module.exports = webpackConfig;
