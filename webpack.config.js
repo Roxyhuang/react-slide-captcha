@@ -10,21 +10,22 @@ var outPath = path.join(__dirname, './dist');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var webpackConfig;
 
 webpackConfig = {
   context: sourcePath,
   entry: {
-    main: './main.tsx'
+    slideCaptcha: './main.tsx'
   },
   output: {
     path: outPath,
-    filename: '[name].js',
-    chunkFilename: '[chunkhash].js',
+    filename: `[name]${isProduction ? '.min' : ''}.js`,
+    // chunkFilename: '[chunkhash].js',
     publicPath: '/',
     libraryExport: "default",
-    library: "slideCaptcha",
+    library: "SlideCaptcha",
     libraryTarget: "umd"
   },
   target: 'web',
@@ -108,8 +109,9 @@ webpackConfig = {
     new WebpackCleanupPlugin(),
     new ExtractTextPlugin({
       filename: 'styles.css',
-      disable: isProduction
+      // disable: isProduction
     }),
+    // new BundleAnalyzerPlugin(),
   ],
   devtool: 'cheap-module-eval-source-map',
   node: {
@@ -117,15 +119,16 @@ webpackConfig = {
     // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
     fs: 'empty',
     net: 'empty'
-  }
+  },
 };
 
 if (!isProduction) {
-    webpackConfig.plugins.push(
-      new HtmlWebpackPlugin({
-        template: '../index.html',
-      })
-    )
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      template: '../index.html',
+    }),
+  );
+
   webpackConfig.devServer = {
     contentBase: sourcePath,
     hot: true,
@@ -134,6 +137,23 @@ if (!isProduction) {
       disableDotRule: true
     },
     stats: 'minimal'
+  }
+} else {
+  webpackConfig.externals = {
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react',
+      umd: 'react',
+    },
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom',
+      umd: 'react-dom',
+    },
   }
 }
 
