@@ -18,19 +18,18 @@ module.exports = {
   },
   output: {
     path: outPath,
-    filename: 'bundle.js',
+    filename: '[name].js',
     chunkFilename: '[chunkhash].js',
-    publicPath: '/'
+    publicPath: '/',
+    libraryExport: "default",
+    library: "slideCaptcha",
+    libraryTarget: "umd"
   },
   target: 'web',
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
-    // Fix webpack's default behavior to not load packages with jsnext:main module
-    // (jsnext:main directs not usually distributable es6 format, but es6 sources)
     mainFields: ['module', 'browser', 'main'],
-    alias: {
-      'app': path.resolve(__dirname, 'src/app/')
-    }
+    alias: {}
   },
   module: {
     rules: [
@@ -40,11 +39,6 @@ module.exports = {
         use: isProduction
             ? 'ts-loader'
             : ['babel-loader?plugins=react-hot-loader/babel', 'ts-loader']
-      },
-      {
-        test: /\.tsx?$/,
-        use:['tslint-loader'],
-        enforce: "pre"
       },
       // css
       {
@@ -79,6 +73,12 @@ module.exports = {
           ]
         })
       },
+      {
+        test: /\.js|tsx$/,
+        exclude: [/\node_modules/, /\.json$/],
+        enforce: "pre",
+        loader: "tslint-loader"
+      },
       // static assets
       { test: /\.html$/, use: 'html-loader' },
       { test: /\.png$/, use: 'url-loader?limit=10000' },
@@ -109,7 +109,8 @@ module.exports = {
       disable: !isProduction
     }),
     new HtmlWebpackPlugin({
-      template: '../index.html'
+      template: '../index.html',
+      disable: isProduction
     })
   ],
   devServer: {
