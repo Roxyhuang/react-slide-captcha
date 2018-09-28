@@ -19,9 +19,6 @@ var webpackConfig;
 
 webpackConfig = {
   context: sourcePath,
-  entry: {
-    slideCaptcha: './main.tsx'
-  },
   output: {
     path: outPath,
     filename: `[name]${isProduction ? '.min' : ''}.js`,
@@ -103,6 +100,9 @@ webpackConfig = {
 };
 
 if (!isProduction) {
+  webpackConfig.entry = {
+    slideCaptcha: './main.tsx'
+  };
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,
@@ -161,6 +161,9 @@ if (!isProduction) {
     stats: 'minimal'
   }
 } else {
+  webpackConfig.entry = {
+    slideCaptcha: './index.tsx'
+  };
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,
