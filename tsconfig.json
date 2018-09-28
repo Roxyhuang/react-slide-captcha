@@ -3,7 +3,7 @@
     "sourceMap": true,
     "target": "es5",
     "jsx": "react",
-    "module": "es6",
+    "module": "umd",
     "newLine": "LF",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -16,7 +16,7 @@
     "removeComments": true,
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
-    "lib": ["es6", "es7", "dom"]
+    "lib": ["es5","es6", "es7", "dom","es2017"]
   },
   "exclude": ["dist", "build", "node_modules","lib", "es"]
 }

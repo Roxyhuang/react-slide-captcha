@@ -108,7 +108,7 @@ if (!isProduction) {
       test: /\.css|less$/,
       exclude: [path.resolve('node_modules')],
       use: [
-        'style-loader',
+        'style-loader',,
         {
           loader: 'css-loader',
           query: {
