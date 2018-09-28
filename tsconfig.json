@@ -3,7 +3,7 @@
     "sourceMap": true,
     "target": "es5",
     "jsx": "react",
-    "module": "umd",
+//    "module": "es6",
     "newLine": "LF",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
