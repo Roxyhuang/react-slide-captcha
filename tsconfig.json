@@ -4,6 +4,7 @@
     "target": "es5",
     "jsx": "react",
     "module": "es6",
+    "newLine": "LF",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
