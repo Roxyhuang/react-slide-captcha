@@ -10,7 +10,10 @@ var outPath = path.join(__dirname, './dist');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var StyleLintPlugin = require('stylelint-webpack-plugin');
+// var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const pkg = require('./package.json');
 
 var webpackConfig;
 
@@ -43,39 +46,7 @@ webpackConfig = {
             ? 'ts-loader'
             : ['babel-loader?plugins=react-hot-loader/babel', 'ts-loader']
       },
-      // css
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              query: {
-                modules: false,
-                sourceMap: !isProduction,
-                importLoaders: 1,
-                localIdentName: '[local]__[hash:base64:5]'
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                ident: 'postcss',
-                plugins: [
-                  require('postcss-import')({ addDependencyTo: webpack }),
-                  require('postcss-url')(),
-                  require('postcss-cssnext')(),
-                  require('postcss-reporter')(),
-                  require('postcss-browser-reporter')({
-                    disabled: isProduction
-                  })
-                ]
-              }
-            }
-          ]
-        })
-      },
+
       {
         test: /\.js|tsx$/,
         exclude: [/\node_modules/, /\.json$/],
@@ -111,6 +82,15 @@ webpackConfig = {
       filename: 'styles.css',
       // disable: isProduction
     }),
+    new StyleLintPlugin({
+        context: "src",
+        configFile: '.stylelintrc.js',
+        files: '**/*.less',
+        failOnError: false,
+        quiet: false,
+        syntax: 'less'
+      }
+    ),
     // new BundleAnalyzerPlugin(),
   ],
   devtool: 'cheap-module-eval-source-map',
@@ -123,6 +103,48 @@ webpackConfig = {
 };
 
 if (!isProduction) {
+  webpackConfig.module.rules.push(
+    {
+      test: /\.css|less$/,
+      exclude: [path.resolve('node_modules')],
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          query: {
+            modules: false,
+            sourceMap: true,
+            importLoaders: 1,
+            localIdentName: '[local]__[hash:base64:5]'
+          }
+        },
+        {
+          loader: "less-loader",
+          query: {
+            modules: false,
+            sourceMap: true,
+            importLoaders: 1,
+            localIdentName: '[local]__[hash:base64:5]'
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            ident: 'postcss',
+            plugins: [
+              require('postcss-import')({ addDependencyTo: webpack }),
+              require('postcss-url')(),
+              require('autoprefixer')({
+                browsers: pkg.browserslist,
+                flexbox: true,
+              }),
+              require('postcss-reporter')(),
+            ]
+          }
+        }
+      ]
+    }
+  );
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       template: '../index.html',
@@ -139,6 +161,50 @@ if (!isProduction) {
     stats: 'minimal'
   }
 } else {
+  webpackConfig.module.rules.push(
+    {
+      test: /\.css|less$/,
+      exclude: [path.resolve('node_modules')],
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            query: {
+              modules: false,
+              sourceMap: false,
+              importLoaders: 1,
+              localIdentName: '[local]__[hash:base64:5]'
+            }
+          },
+          {
+            loader: "less-loader",
+            query: {
+              modules: false,
+              sourceMap: false,
+              importLoaders: 1,
+              localIdentName: '[local]__[hash:base64:5]'
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [
+                require('postcss-import')({ addDependencyTo: webpack }),
+                require('postcss-url')(),
+                require('autoprefixer')({
+                  browsers: pkg.browserslist,
+                  flexbox: true,
+                }),
+                require('postcss-reporter')(),
+              ]
+            }
+          }
+        ]
+      })
+    },
+  );
   webpackConfig.externals = {
     react: {
       root: 'React',
