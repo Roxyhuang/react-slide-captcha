@@ -1,3 +1,3 @@
-import { App } from './app/';
+import SlideCaptcha from './components/SlideCaptcha';
 
-export default App;
+export default SlideCaptcha;
