@@ -6,7 +6,7 @@ import './styles/index.less';
 interface IProps {
   readonly puzzleUrl: string;
   readonly bgUrl: string;
-  readonly getResult: ( onRequest: () => void, onSuccess: () =>  void, onFail: ()=> void ) => void;
+  readonly onRequest: (validatedSuccess: any, validatedFail?: any) => void;
   readonly containerClassName?: string;
 }
 
@@ -36,7 +36,6 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   componentDidMount() {
     setTimeout(() => {
-      console.log(this.sliderWidth.clientWidth);
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
     }, 0)
 
@@ -70,6 +69,16 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     }
   }
 
+  public validatedSuccess = ():void => {
+    this.setState({
+      validated: true
+    })
+  };
+
+  public validatedFail = (): void => {
+    console.log('失败');
+  };
+
   private handleTouchStart = (e): void => {
     e.preventDefault();
     this.setState({
@@ -89,8 +98,8 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         isTouchEndSpan: true,
         isMoving: false
       });
-      if(this.props.getResult) {
-
+      if(this.props.onRequest) {
+        this.props.onRequest(this.validatedSuccess, this.validatedFail);
       }
       setTimeout(() => {
         this.setState({
@@ -127,8 +136,6 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             <div className="slided" style={{width: `${this.state.offsetX}px`}} />
             <div className="slider"
                  style={{left: `${this.state.offsetX}px`}}
-                 onMouseDown={(event) => {this.handleTouchStart(event); this.handleTouchMove(event);}}
-                 onMouseUp={this.handleTouchEnd}
                  onTouchStart={this.handleTouchStart}
                  onTouchMove={this.handleTouchMove}
                  onTouchEnd={this.handleTouchEnd}
