@@ -1,23 +1,34 @@
+/// <reference path='../types/global.d.ts'/>
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SlideCaptcha from './components/SlideCaptcha';
 import axios from 'axios';
+import * as arrow from './assets/img/arrow.svg';
+import * as arrow_white from './assets/img/arrow_white.svg';
+import * as cross from './assets/img/cross.svg';
 // render react DOM
 
-const resultCallback = (validatedSuccess: () => void,validatedFail?: () => void ) => {
+console.log(arrow);
+
+const resultCallback = (validateValue: number, validatedSuccess: (callback: () => any) => void,validatedFail?: (callback: () => any) => void ) => {
   axios({
     method: 'post',
     baseURL: 'http://localhost:5000',
     url: '/data',
   }).then((res) => {
     console.log(res);
-    const flag = false;
+    const flag = true;
+    console.log(validateValue);
     if (flag) {
-      validatedSuccess();
-      // alert('验证成功');
+      validatedSuccess(() => {
+        alert('验证成功');
+      });
+
     } else {
-      validatedFail();
-      // alert('验证失败');
+      validatedFail(() => {
+        alert('验证失败');
+      });
     }
   }).catch(() => {
       console.log('报错啦');
@@ -33,6 +44,9 @@ const Demo = () => {
       bgUrl="http://localhost:5000/bg.jpg"
       onRequest={resultCallback}
       containerClassName="test"
+      slidedImage={<img src={arrow} />}
+      slidedImageSuccess={<img src={arrow_white} />}
+      slidedImageError={<img src={cross} />}
     />
   )
 }

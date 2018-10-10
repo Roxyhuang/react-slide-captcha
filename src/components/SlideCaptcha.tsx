@@ -1,4 +1,4 @@
-/// <reference path='../../types//global.d.ts'/>
+/// <reference path='../../types/global.d.ts'/>
 
 import * as React from 'react';
 import './styles/index.less';
@@ -6,8 +6,11 @@ import './styles/index.less';
 interface IProps {
   readonly puzzleUrl: string;
   readonly bgUrl: string;
-  readonly onRequest: (validatedSuccess: any, validatedFail?: any) => void;
+  readonly onRequest: (validateValue: number, validatedSuccess: any, validatedFail?: any) => void;
   readonly containerClassName?: string;
+  readonly slidedImage?: any
+  readonly slidedImageSuccess?: any
+  readonly slidedImageError?: any
 }
 
 interface IState {
@@ -69,14 +72,15 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     }
   }
 
-  public validatedSuccess = ():void => {
+  public validatedSuccess = (callback: () => any):void => {
     this.setState({
       validated: true
-    })
+    },callback());
+
   };
 
-  public validatedFail = (): void => {
-    console.log('失败');
+  public validatedFail = (callback: () => any): void => {
+    callback();
   };
 
   private handleTouchStart = (e): void => {
@@ -94,12 +98,13 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   private handleTouchEnd = (e): void => {
     e.preventDefault();
     if (this.state.offsetX > 0) {
+      const validateValue = this.state.offsetX / this.maxSlidedWidth;
       this.setState({
         isTouchEndSpan: true,
         isMoving: false
       });
       if(this.props.onRequest) {
-        this.props.onRequest(this.validatedSuccess, this.validatedFail);
+        this.props.onRequest(validateValue, this.validatedSuccess, this.validatedFail);
       }
       setTimeout(() => {
         this.setState({
@@ -120,10 +125,17 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   render() {
     let ctrlClassName;
+    let slidedImage = this.props.slidedImage || '>';
     if (this.state.isMoving) {
-      ctrlClassName = 'slider-moving'
+      ctrlClassName = 'slider-moving';
+      if(this.props.slidedImageSuccess) {
+        slidedImage = this.props.slidedImageSuccess
+      }
     } else if (this.state.isTouchEndSpan) {
-      ctrlClassName = 'slider-end'
+      ctrlClassName = 'slider-end';
+      if(this.props.slidedImageError) {
+        slidedImage = this.props.slidedImageError
+      }
     }
     return(
       <div>
@@ -139,7 +151,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
                  onTouchStart={this.handleTouchStart}
                  onTouchMove={this.handleTouchMove}
                  onTouchEnd={this.handleTouchEnd}
-            />
+            >
+              {slidedImage}
+            </div>
             <div className="tips">
               <span>
                 向右滑动滑块填充拼图

@@ -52,12 +52,18 @@ webpackConfig = {
       },
       // static assets
       { test: /\.html$/, use: 'html-loader' },
+      // {
+      //   test: /\.(png|jpg|)$/,
+      //   loader: 'url-loader?limit=200000'
+      // }
       { test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
         loader: 'file-loader',
         options: {
           name: '[path][name].[ext]',
-          publicPath: './assets',
-      } }
+          publicPath: './',
+          outputPath: './assets/img/',
+        }
+      }
     ]
   },
   optimization: {
