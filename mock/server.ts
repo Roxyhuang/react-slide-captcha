@@ -10,17 +10,43 @@ const router = require('koa-router')();
 
 const staticServer = require("koa-static");
 
+// const getRandomStr = ():number => {
+//
+// };
+
+const validate =(id, distance):object => {
+  let percentage = parseFloat(distance);
+  let matched: boolean = false;
+  switch (id) {
+    case 1 :
+      matched = percentage > 0.37 && percentage < 0.47;
+      break;
+    case 2:
+      matched = percentage > 0.37 && percentage < 0.47;
+      break;
+  }
+
+  return matched ? {code: 100} : {code: -100};
+};
+
+
+
 const data = {
-  async getData(ctx: Context): Promise<void> {
-    ctx.body = JSON.stringify({test: 1111});
+  async validate(ctx: Context): Promise<void> {
+    const body = ctx.request.body;
+    console.log(body);
+    const id = body.id;
+    const distance = body.distance;
+    const res = validate(id, distance);
+    ctx.body = JSON.stringify(res);
   },
   async getPuzzle(ctx: Context) : Promise<void> {
-    ctx.body = JSON.stringify({bgUrl: 'http://localhost:5000/bg.jpg', puzzle: 'http://localhost:5000/puzzle.jpg'});
+    ctx.body = JSON.stringify({id: 1, bgUrl: 'http://localhost:5000/bg.jpg', puzzleUrl: 'http://localhost:5000/puzzle.png'});
   }
 };
 
-router.post('/data', data.getData);
 router.post('/getPuzzle', data.getPuzzle);
+router.post('/validate', data.validate);
 
 const  createServer = async(): Promise<any> => {
 
@@ -42,7 +68,6 @@ export default (async() => {
     const app = await createServer();
     const server: Server = app.listen(5000, () => {
       console.log(5000);
-      // console.log(`Server listening on ${Environment.port}, in ${Environment.identity} mode.`)
     });
     return server
   } catch (e) {

@@ -52,18 +52,23 @@ webpackConfig = {
       },
       // static assets
       { test: /\.html$/, use: 'html-loader' },
-      // {
-      //   test: /\.(png|jpg|)$/,
-      //   loader: 'url-loader?limit=200000'
-      // }
-      { test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
-        loader: 'file-loader',
+      {
+        test:  /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
+        loader: 'url-loader?limit=200000',
         options: {
           name: '[path][name].[ext]',
           publicPath: './',
           outputPath: './assets/img/',
         }
-      }
+      },
+      // { test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '[path][name].[ext]',
+      //     publicPath: './',
+      //     outputPath: './assets/img/',
+      //   }
+      // }
     ]
   },
   optimization: {
@@ -174,6 +179,11 @@ if (!isProduction) {
   webpackConfig.entry = {
     slideCaptcha: './index.tsx'
   };
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      template: './index.html',
+    }),
+  );
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,

@@ -24,20 +24,22 @@ interface IState {
 }
 
 class SlideCaptcha extends React.Component<IProps, IState>{
+  static propTest = 111;
+  state: IState = {
+    originX: 0,
+    offsetX: 0,
+    puzzleUrl: '',
+    bgUrl: '',
+    validated: false,
+    isMoving: false,
+    isTouchEndSpan: false,
+  }
   constructor(props: IProps) {
     super(props);
-    this.state = {
-      originX: 0,
-      offsetX: 0,
-      puzzleUrl: '',
-      bgUrl: '',
-      validated: false,
-      isMoving: false,
-      isTouchEndSpan: false,
-    };
   }
 
   componentDidMount() {
+    console.log(SlideCaptcha.propTest);
     setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
     }, 0)
@@ -55,7 +57,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     if (e.type.indexOf('touch') > -1) {
       return e.touches[0].clientX;
     }
-  }
+  };
 
   private move = (e): void => {
     const clientX = this.getClientX(e);
@@ -121,7 +123,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         originX: 0
       });
     }
-  }
+  };
 
   render() {
     let ctrlClassName;
