@@ -13,10 +13,10 @@ interface IProps {
   readonly puzzleUrl: string;
   readonly bgUrl: string;
   readonly onRequest: (validateValue: number, validatedSuccess: any, validatedFail?: any) => void;
-  readonly containerClassName?: string;
   readonly slidedImage?: any
   readonly slidedImageSuccess?: any
   readonly slidedImageError?: any
+  readonly containerClassName?: string;
 }
 
 interface IState {
@@ -84,7 +84,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   };
 
-  public validatedFail = (callback: () => any): void => {
+  public validatedFail = (callback: () => any): any => {
     this.setState({
       validated: validateStatus.error
     },callback());
@@ -134,11 +134,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   };
 
   renderImage = ():any =>{
-
     let slidedImageValue = this.props.slidedImage || '>';
     let slidedImageSuccessValue = this.props.slidedImageSuccess || '>';
     let slidedImageErrorValue = this.props.slidedImageError || 'x';
-
     return { slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue }
   };
 
@@ -149,7 +147,6 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       ctrlClassName = 'slider-moving';
     } else {
       if(this.state.isTouchEndSpan) {
-        console.log(this.state.validated);
         if(this.state.validated === validateStatus.success) {
           ctrlClassName = 'slider-end slider-success';
           slidedImageValue = slidedImageSuccess;

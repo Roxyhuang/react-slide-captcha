@@ -179,12 +179,11 @@ if (!isProduction) {
   webpackConfig.entry = {
     slideCaptcha: './index.tsx'
   };
+
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,
       exclude: [path.resolve('node_modules')],
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
         use: [
           {
             loader: 'css-loader',
@@ -220,7 +219,6 @@ if (!isProduction) {
             }
           }
         ]
-      })
     },
   );
   webpackConfig.externals = {

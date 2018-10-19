@@ -25,7 +25,6 @@ class Demo extends React.Component<null,IState> {
     }
   }
 
-
   componentDidMount() {
     this.getPuzzleInfo().then((res) => {
       this.setState({
