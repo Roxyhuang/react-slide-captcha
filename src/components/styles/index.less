@@ -1,6 +1,10 @@
 .slideCaptchaContainer {
+  position: relative;
+  margin: 0 auto;
+
   .panel {
     position: relative;
+    margin: 0 auto;
 
     .puzzleImg {
       display: block;
@@ -44,9 +48,8 @@
       width: 40px;
       height: 100%;
       border-radius: 2px;
-      background-color: blue;
+      background-color: #fff;
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-      //cursor: pointer; // 模拟器上点击会有默认蓝色效果
       text-align: center;
       line-height: 40px;
       color: #777;
@@ -63,6 +66,7 @@
       text-align: center;
       line-height: 40px;
       color: #45494c;
+      font-size: 20%;
     }
   }
 
@@ -75,27 +79,39 @@
     }
 
     .slider {
-      color: #fff;
+      color: #777;
       border: none;
       border-radius: 0;
-      //background: dodgerblue url(images/arrow_white.png) no-repeat 50% center;
-      background-size: px2rem(20px);
     }
   }
 
   .slider-end {
+    .slider {
+      color: #777;
+      border: none;
+      border-radius: 0;
+    }
+
+    .slided {
+      border: 1px solid transparent;
+      border-right: 0;
+      background-color: transparent;
+    }
+  }
+
+  .slider-error {
     .slided {
       border: 1px solid #f57a7a;
       border-right: 0;
       background-color: #fce1e1;
     }
+  }
 
-    .slider {
-      color: #fff;
-      border: none;
-      border-radius: 0;
-      //background: #f57a7a url(images/cross.png) no-repeat 50% center;
-      background-size: px2rem(20px);
+  .slider-success {
+    .slided {
+      border: 1px solid darkgreen;
+      border-right: 0;
+      background-color: darkseagreen;
     }
   }
 }

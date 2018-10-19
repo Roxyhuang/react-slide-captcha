@@ -179,11 +179,6 @@ if (!isProduction) {
   webpackConfig.entry = {
     slideCaptcha: './index.tsx'
   };
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      template: './index.html',
-    }),
-  );
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,

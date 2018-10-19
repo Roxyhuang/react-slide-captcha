@@ -4,9 +4,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SlideCaptcha from './components/SlideCaptcha';
 import axios from 'axios';
-import * as arrow from './assets/img/arrow.svg';
-import * as arrow_white from './assets/img/arrow_white.svg';
-import * as cross from './assets/img/cross.svg';
+// import * as arrow from './assets/img/arrow.svg';
+// import * as arrow_white from './assets/img/arrow_white.svg';
+// import * as cross from './assets/img/cross.svg';
 // render react DOM
 
 interface IState {
@@ -16,7 +16,7 @@ interface IState {
 }
 
 class Demo extends React.Component<null,IState> {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       puzzleUrl: '',
@@ -78,9 +78,6 @@ class Demo extends React.Component<null,IState> {
         bgUrl={this.state.bgUrl}
         onRequest={this.resultCallback}
         containerClassName="test"
-        slidedImage={<img src={arrow} />}
-        slidedImageSuccess={<img src={arrow_white} />}
-        slidedImageError={<img src={cross} />}
       />
     )
   }

@@ -3,6 +3,12 @@
 import * as React from 'react';
 import './styles/index.less';
 
+enum validateStatus{
+  init = 0,
+  success = 1,
+  error = -1,
+}
+
 interface IProps {
   readonly puzzleUrl: string;
   readonly bgUrl: string;
@@ -18,32 +24,29 @@ interface IState {
   offsetX: number;
   puzzleUrl: string;
   bgUrl: string;
-  validated: boolean;
+  validated: validateStatus;
   isMoving: boolean;
   isTouchEndSpan: boolean;
 }
 
 class SlideCaptcha extends React.Component<IProps, IState>{
-  static propTest = 111;
   state: IState = {
     originX: 0,
     offsetX: 0,
     puzzleUrl: '',
     bgUrl: '',
-    validated: false,
+    validated: validateStatus.init,
     isMoving: false,
     isTouchEndSpan: false,
-  }
+  };
   constructor(props: IProps) {
     super(props);
   }
 
   componentDidMount() {
-    console.log(SlideCaptcha.propTest);
     setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
-    }, 0)
-
+    }, 0);
   }
 
   private maxSlidedWidth: number = 0;
@@ -72,17 +75,19 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         isMoving: true,
       })
     }
-  }
+  };
 
   public validatedSuccess = (callback: () => any):void => {
     this.setState({
-      validated: true
+      validated: validateStatus.success
     },callback());
 
   };
 
   public validatedFail = (callback: () => any): void => {
-    callback();
+    this.setState({
+      validated: validateStatus.error
+    },callback());
   };
 
   private handleTouchStart = (e): void => {
@@ -95,7 +100,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   private handleTouchMove = (e): void => {
     e.preventDefault();
     this.move(e);
-  }
+  };
 
   private handleTouchEnd = (e): void => {
     e.preventDefault();
@@ -112,43 +117,72 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         this.setState({
           offsetX: 0,
           originX: 0,
-          isTouchEndSpan: false
+          isTouchEndSpan: false,
+          isMoving: false,
+          validated: validateStatus.init,
         })
-      }, 300);
+      }, 500);
     } else {
       this.setState({
         isTouchEndSpan: false,
         isMoving: false,
         offsetX: 0,
-        originX: 0
+        originX: 0,
+        validated: validateStatus.init,
       });
     }
   };
 
-  render() {
+  renderImage = ():any =>{
+
+    let slidedImageValue = this.props.slidedImage || '>';
+    let slidedImageSuccessValue = this.props.slidedImageSuccess || '>';
+    let slidedImageErrorValue = this.props.slidedImageError || 'x';
+
+    return { slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue }
+  };
+
+  renderCtrlClassName = (slidedImage, slidedImageSuccess, slidedImageError) => {
     let ctrlClassName;
-    let slidedImage = this.props.slidedImage || '>';
-    if (this.state.isMoving) {
+    let slidedImageValue = slidedImage;
+    if(this.state.isMoving) {
       ctrlClassName = 'slider-moving';
-      if(this.props.slidedImageSuccess) {
-        slidedImage = this.props.slidedImageSuccess
-      }
-    } else if (this.state.isTouchEndSpan) {
-      ctrlClassName = 'slider-end';
-      if(this.props.slidedImageError) {
-        slidedImage = this.props.slidedImageError
+    } else {
+      if(this.state.isTouchEndSpan) {
+        console.log(this.state.validated);
+        if(this.state.validated === validateStatus.success) {
+          ctrlClassName = 'slider-end slider-success';
+          slidedImageValue = slidedImageSuccess;
+        } else if(this.state.validated === validateStatus.error) {
+          ctrlClassName = 'slider-end slider-error';
+          slidedImageValue = slidedImageError;
+        } else {
+          ctrlClassName = 'slider-moving';
+        }
+      } else {
+        ctrlClassName = '';
       }
     }
+    return { ctrlClassName, slidedImage: slidedImageValue };
+  };
+
+  render() {
+    const {
+      slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue
+    } = this.renderImage();
+
+    let { ctrlClassName, slidedImage } = this.renderCtrlClassName(slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue);
     return(
       <div>
         <div className={`slideCaptchaContainer ${this.props.containerClassName ? this.props.containerClassName: ''}`}>
           <div className="panel">
             <img src={this.props.bgUrl} className="bgImg" />
-            <img src={this.props.puzzleUrl} className="puzzleImg"  style={{left: `${this.state.offsetX}px`}} ref={(el) => { this.sliderWidth = el;}} />
+            <img src={this.props.puzzleUrl} className="puzzleImg"  style={{left: `${this.state.offsetX}px`}} />
           </div>
           <div className={`control ${ctrlClassName ? ctrlClassName: ''}`} ref={(el)=>  { this.ctrlWidth = el; } }>
             <div className="slided" style={{width: `${this.state.offsetX}px`}} />
             <div className="slider"
+                 ref={(el) => { this.sliderWidth = el;}}
                  style={{left: `${this.state.offsetX}px`}}
                  onTouchStart={this.handleTouchStart}
                  onTouchMove={this.handleTouchMove}
