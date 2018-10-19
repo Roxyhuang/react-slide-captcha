@@ -13,9 +13,9 @@ interface IProps {
   readonly puzzleUrl: string;
   readonly bgUrl: string;
   readonly onRequest: (validateValue: number, validatedSuccess: any, validatedFail?: any) => void;
-  readonly slidedImage?: any
-  readonly slidedImageSuccess?: any
-  readonly slidedImageError?: any
+  readonly slidedImage?: any;
+  readonly slidedImageSuccess?: any;
+  readonly slidedImageError?: any;
   readonly containerClassName?: string;
 }
 
