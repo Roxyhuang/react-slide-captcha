@@ -15,7 +15,7 @@ interface IState {
   id: string,
 }
 
-class Demo extends React.Component<null,IState> {
+class Demo extends React.Component<null, IState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,19 +40,18 @@ class Demo extends React.Component<null,IState> {
       method: 'post',
       baseURL: 'http://localhost:5000',
       url: '/getPuzzle',
-    }).then( (res) => {
+    }).then((res) => {
       return res.data;
     });
   };
 
-  resultCallback = (validateValue: number, validatedSuccess: (callback: () => any) => void,validatedFail?: (callback: () => any) => void )  => {
+  resultCallback = (validateValue: number, validatedSuccess: (callback: () => any) => void, validatedFail?: (callback: () => any) => void ) => {
     axios({
       method: 'post',
       baseURL: 'http://localhost:5000',
       url: '/validate',
       data: {id: this.state.id, distance: validateValue},
     }).then((res) => {
-      console.log(res);
       const data = res.data;
       const code = data.code;
       if (code === 100) {
