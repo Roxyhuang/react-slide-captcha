@@ -24,8 +24,6 @@ interface IProps {
 interface IState {
   originX: number;
   offsetX: number;
-  puzzleUrl: string;
-  bgUrl: string;
   validated: validateStatus;
   isMoving: boolean;
   isTouchEndSpan: boolean;
@@ -35,8 +33,6 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   state: IState = {
     originX: 0,
     offsetX: 0,
-    puzzleUrl: '',
-    bgUrl: '',
     validated: validateStatus.init,
     isMoving: false,
     isTouchEndSpan: false,
