@@ -56,12 +56,12 @@ class Demo extends React.Component<null, IState> {
       const code = data.code;
       if (code === 100) {
         validatedSuccess(() => {
-          alert('验证成功');
+          alert('验证成功，此处可以验证成功代码');
         });
 
       } else {
         validatedFail(() => {
-          alert('验证失败');
+          alert('验证失败，处可以处理验证失败代码');
         });
       }
     }).catch(() => {
@@ -76,6 +76,8 @@ class Demo extends React.Component<null, IState> {
         bgUrl={this.state.bgUrl}
         onRequest={this.resultCallback}
         containerClassName="test"
+        tipsText="请向右滑动滑块填充拼图"
+        style={{width: '350px'}}
       />
     )
   }

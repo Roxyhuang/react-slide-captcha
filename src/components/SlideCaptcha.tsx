@@ -17,6 +17,8 @@ interface IProps {
   readonly slidedImageSuccess?: any;
   readonly slidedImageError?: any;
   readonly containerClassName?: string;
+  readonly style?: object;
+  readonly tipsText?: string;
 }
 
 interface IState {
@@ -206,6 +208,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             `slideCaptchaContainer ${this.props.containerClassName ?
               this.props.containerClassName : ''}`
           }
+          style={this.props.style || {} }
           onMouseMove={this.handlerMouseMove}
           onMouseUp={this.handlerMouseUp}
         >
@@ -234,7 +237,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             </div>
             <div className="tips">
               <span>
-                向右滑动滑块填充拼图
+                {this.props.tipsText || '向右滑动滑块填充拼图'}
               </span>
             </div>
           </div>
