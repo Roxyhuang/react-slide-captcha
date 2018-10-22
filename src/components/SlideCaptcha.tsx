@@ -72,7 +72,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       }
       this.setState({
         offsetX,
-        isMoving: true,
+        // isMoving: true,
       })
     }
   };
@@ -100,10 +100,14 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   private handleTouchMove = (e): void => {
     e.preventDefault();
     this.move(e);
+    this.setState({
+      // offsetX,
+      isMoving: true,
+    })
   };
 
-  private handleTouchEnd = (e): void => {
-    e.preventDefault();
+  private handleTouchEnd = (): void => {
+    // e.preventDefault();
     if (this.state.offsetX > 0) {
       const validateValue = this.state.offsetX / this.maxSlidedWidth;
       this.setState({
@@ -163,6 +167,29 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     return { ctrlClassName, slidedImage: slidedImageValue };
   };
 
+  handlerMouseDown = (e) => {
+    e.preventDefault();
+    this.setState({
+      originX: this.getClientX(e),
+      isMoving: true,
+    });
+  };
+
+  handlerMouseMove = (e) => {
+    e.preventDefault();
+    if(this.state.isMoving) {
+      this.move(e);
+    }
+  };
+
+  handlerMouseUp = (e) => {
+    e.preventDefault();
+    this.setState({
+      isMoving: false,
+    });
+    this.handleTouchEnd();
+  };
+
   render() {
     const {
       slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue
@@ -171,7 +198,10 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     let { ctrlClassName, slidedImage } = this.renderCtrlClassName(slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue);
     return(
       <div>
-        <div className={`slideCaptchaContainer ${this.props.containerClassName ? this.props.containerClassName: ''}`}>
+        <div className={`slideCaptchaContainer ${this.props.containerClassName ? this.props.containerClassName: ''}`}
+             onMouseMove={this.handlerMouseMove}
+             onMouseUp={this.handlerMouseUp}
+        >
           <div className="panel">
             <img src={this.props.bgUrl} className="bgImg" />
             <img src={this.props.puzzleUrl} className="puzzleImg"  style={{left: `${this.state.offsetX}px`}} />
@@ -184,6 +214,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
                  onTouchStart={this.handleTouchStart}
                  onTouchMove={this.handleTouchMove}
                  onTouchEnd={this.handleTouchEnd}
+                 onMouseDown={this.handlerMouseDown}
             >
               {slidedImage}
             </div>
