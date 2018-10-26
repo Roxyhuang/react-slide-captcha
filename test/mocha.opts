@@ -1,7 +1,0 @@
-test/**/*.ts
-test/**/*.tsx
---recursive
---require ignore-styles
---require ts-node/register
---colors
---inspect

@@ -12,7 +12,7 @@ import axios from 'axios';
 interface IState {
   puzzleUrl: string;
   bgUrl: string;
-  id: string,
+  id: string;
 }
 
 class Demo extends React.Component<null, IState> {
@@ -77,7 +77,7 @@ class Demo extends React.Component<null, IState> {
         onRequest={this.resultCallback}
         containerClassName="test"
         tipsText="请向右滑动滑块填充拼图"
-        style={{width: '350px'}}
+        style={{width: '500px'}}
       />
     )
   }
