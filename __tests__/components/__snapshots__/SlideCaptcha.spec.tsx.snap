@@ -1,0 +1,632 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SlideCaptcha 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SlideCaptcha
+    bgUrl="www.baidu.com"
+    containerClassName="test"
+    onRequest={[Function]}
+    puzzleUrl="www.baidu.com"
+    style={
+      Object {
+        "width": "500px",
+      }
+    }
+    tipsText="请向右滑动滑块填充拼图"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className="slideCaptchaContainer test"
+        onMouseMove={[Function]}
+        onMouseUp={[Function]}
+        style={
+          Object {
+            "width": "500px",
+          }
+        }
+      >
+        <div
+          className="panel"
+        >
+          <img
+            className="bgImg"
+            src="www.baidu.com"
+          />
+          <img
+            className="puzzleImg"
+            src="www.baidu.com"
+            style={
+              Object {
+                "left": "0px",
+              }
+            }
+          />
+        </div>
+        <div
+          className="control "
+        >
+          <div
+            className="slided"
+            style={
+              Object {
+                "width": "0px",
+              }
+            }
+          />
+          <div
+            className="slider"
+            onMouseDown={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "left": "0px",
+              }
+            }
+          >
+            &gt;
+          </div>
+          <div
+            className="tips"
+          >
+            <span>
+              请向右滑动滑块填充拼图
+            </span>
+          </div>
+        </div>
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="panel"
+          >
+            <img
+              className="bgImg"
+              src="www.baidu.com"
+            />
+            <img
+              className="puzzleImg"
+              src="www.baidu.com"
+              style={
+                Object {
+                  "left": "0px",
+                }
+              }
+            />
+          </div>,
+          <div
+            className="control "
+          >
+            <div
+              className="slided"
+              style={
+                Object {
+                  "width": "0px",
+                }
+              }
+            />
+            <div
+              className="slider"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "left": "0px",
+                }
+              }
+            >
+              &gt;
+            </div>
+            <div
+              className="tips"
+            >
+              <span>
+                请向右滑动滑块填充拼图
+              </span>
+            </div>
+          </div>,
+        ],
+        "className": "slideCaptchaContainer test",
+        "onMouseMove": [Function],
+        "onMouseUp": [Function],
+        "style": Object {
+          "width": "500px",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <img
+                className="bgImg"
+                src="www.baidu.com"
+              />,
+              <img
+                className="puzzleImg"
+                src="www.baidu.com"
+                style={
+                  Object {
+                    "left": "0px",
+                  }
+                }
+              />,
+            ],
+            "className": "panel",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "bgImg",
+                "src": "www.baidu.com",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "puzzleImg",
+                "src": "www.baidu.com",
+                "style": Object {
+                  "left": "0px",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="slided"
+                style={
+                  Object {
+                    "width": "0px",
+                  }
+                }
+              />,
+              <div
+                className="slider"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                  }
+                }
+              >
+                &gt;
+              </div>,
+              <div
+                className="tips"
+              >
+                <span>
+                  请向右滑动滑块填充拼图
+                </span>
+              </div>,
+            ],
+            "className": "control ",
+          },
+          "ref": [Function],
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "slided",
+                "style": Object {
+                  "width": "0px",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": ">",
+                "className": "slider",
+                "onMouseDown": [Function],
+                "onTouchEnd": [Function],
+                "onTouchMove": [Function],
+                "onTouchStart": [Function],
+                "style": Object {
+                  "left": "0px",
+                },
+              },
+              "ref": [Function],
+              "rendered": ">",
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <span>
+                  请向右滑动滑块填充拼图
+                </span>,
+                "className": "tips",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "请向右滑动滑块填充拼图",
+                },
+                "ref": null,
+                "rendered": "请向右滑动滑块填充拼图",
+                "type": "span",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="slideCaptchaContainer test"
+          onMouseMove={[Function]}
+          onMouseUp={[Function]}
+          style={
+            Object {
+              "width": "500px",
+            }
+          }
+        >
+          <div
+            className="panel"
+          >
+            <img
+              className="bgImg"
+              src="www.baidu.com"
+            />
+            <img
+              className="puzzleImg"
+              src="www.baidu.com"
+              style={
+                Object {
+                  "left": "0px",
+                }
+              }
+            />
+          </div>
+          <div
+            className="control "
+          >
+            <div
+              className="slided"
+              style={
+                Object {
+                  "width": "0px",
+                }
+              }
+            />
+            <div
+              className="slider"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "left": "0px",
+                }
+              }
+            >
+              &gt;
+            </div>
+            <div
+              className="tips"
+            >
+              <span>
+                请向右滑动滑块填充拼图
+              </span>
+            </div>
+          </div>
+        </div>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="panel"
+            >
+              <img
+                className="bgImg"
+                src="www.baidu.com"
+              />
+              <img
+                className="puzzleImg"
+                src="www.baidu.com"
+                style={
+                  Object {
+                    "left": "0px",
+                  }
+                }
+              />
+            </div>,
+            <div
+              className="control "
+            >
+              <div
+                className="slided"
+                style={
+                  Object {
+                    "width": "0px",
+                  }
+                }
+              />
+              <div
+                className="slider"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                  }
+                }
+              >
+                &gt;
+              </div>
+              <div
+                className="tips"
+              >
+                <span>
+                  请向右滑动滑块填充拼图
+                </span>
+              </div>
+            </div>,
+          ],
+          "className": "slideCaptchaContainer test",
+          "onMouseMove": [Function],
+          "onMouseUp": [Function],
+          "style": Object {
+            "width": "500px",
+          },
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <img
+                  className="bgImg"
+                  src="www.baidu.com"
+                />,
+                <img
+                  className="puzzleImg"
+                  src="www.baidu.com"
+                  style={
+                    Object {
+                      "left": "0px",
+                    }
+                  }
+                />,
+              ],
+              "className": "panel",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "bgImg",
+                  "src": "www.baidu.com",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "puzzleImg",
+                  "src": "www.baidu.com",
+                  "style": Object {
+                    "left": "0px",
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="slided"
+                  style={
+                    Object {
+                      "width": "0px",
+                    }
+                  }
+                />,
+                <div
+                  className="slider"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "left": "0px",
+                    }
+                  }
+                >
+                  &gt;
+                </div>,
+                <div
+                  className="tips"
+                >
+                  <span>
+                    请向右滑动滑块填充拼图
+                  </span>
+                </div>,
+              ],
+              "className": "control ",
+            },
+            "ref": [Function],
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "slided",
+                  "style": Object {
+                    "width": "0px",
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": ">",
+                  "className": "slider",
+                  "onMouseDown": [Function],
+                  "onTouchEnd": [Function],
+                  "onTouchMove": [Function],
+                  "onTouchStart": [Function],
+                  "style": Object {
+                    "left": "0px",
+                  },
+                },
+                "ref": [Function],
+                "rendered": ">",
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <span>
+                    请向右滑动滑块填充拼图
+                  </span>,
+                  "className": "tips",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "请向右滑动滑块填充拼图",
+                  },
+                  "ref": null,
+                  "rendered": "请向右滑动滑块填充拼图",
+                  "type": "span",
+                },
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
