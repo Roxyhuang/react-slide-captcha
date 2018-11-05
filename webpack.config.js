@@ -113,7 +113,7 @@ webpackConfig = {
     net: 'empty'
   },
 };
-
+// dev config
 if (!isProduction) {
   webpackConfig.entry = {
     slideCaptcha: './main.tsx'
@@ -175,6 +175,7 @@ if (!isProduction) {
     },
     stats: 'minimal'
   }
+// prod config
 } else {
   webpackConfig.entry = {
     slideCaptcha: './index.tsx'
@@ -183,7 +184,8 @@ if (!isProduction) {
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,
-      exclude: [path.resolve('node_modules')],
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
         use: [
           {
             loader: 'css-loader',
@@ -210,15 +212,12 @@ if (!isProduction) {
               plugins: [
                 require('postcss-import')({ addDependencyTo: webpack }),
                 require('postcss-url')(),
-                require('autoprefixer')({
-                  browsers: pkg.browserslist,
-                  flexbox: true,
-                }),
                 require('postcss-reporter')(),
               ]
             }
           }
         ]
+      })
     },
   );
   webpackConfig.externals = {

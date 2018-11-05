@@ -78,6 +78,12 @@ class Demo extends React.Component<null, IState> {
         containerClassName="test"
         tipsText="请向右滑动滑块填充拼图"
         style={{width: '500px'}}
+        robotValidate={{
+          offsetY: 5,
+          handler: ():void => {
+            alert('错误，您并非人类');
+          }
+        }}
       />
     )
   }

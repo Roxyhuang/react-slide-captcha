@@ -1,6 +1,6 @@
 {
   "name": "react-slide-captcha",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "license": "MIT",
   "browserslist": [
     ">1%",
@@ -83,11 +83,14 @@
     "webpack-dev-server": "^3.1.0",
     "webpack-hot-middleware": "^2.21.1"
   },
-  "main": "index.js",
+  "main": "dist/slideCaptcha.min.js",
   "scripts": {
     "test": "jest --color  --coverage",
     "start": "webpack-dev-server --mode development --hot --progress --colors --port 3000 --open",
     "build": "webpack -p --progress --colors",
     "mock": "ts-node mock/server.ts"
-  }
+  },
+  "files": [
+    "dist/*.css"
+  ]
 }

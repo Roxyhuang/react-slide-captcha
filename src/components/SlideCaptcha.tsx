@@ -9,6 +9,11 @@ enum validateStatus{
   error = -1,
 }
 
+type robotValidateConfig =  {
+  offsetY: number,
+  handler: () => any,
+};
+
 interface IProps {
   readonly puzzleUrl: string;
   readonly bgUrl: string;
@@ -19,11 +24,14 @@ interface IProps {
   readonly containerClassName?: string;
   readonly style?: object;
   readonly tipsText?: string;
+  readonly robotValidate?: robotValidateConfig
 }
 
 interface IState {
   originX: number;
   offsetX: number;
+  originY: number;
+  totalY: number;
   validated: validateStatus;
   isMoving: boolean;
   isTouchEndSpan: boolean;
@@ -33,6 +41,8 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   state: IState = {
     originX: 0,
     offsetX: 0,
+    originY: 0,
+    totalY: 0,
     validated: validateStatus.init,
     isMoving: false,
     isTouchEndSpan: false,
@@ -60,9 +70,21 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     }
   };
 
+  private getClientY = (e): number => {
+    if (e.type.indexOf('mouse') > -1) {
+      return e.clientY;
+    }
+    if (e.type.indexOf('touch') > -1) {
+      return e.touches[0].clientY;
+    }
+  };
+
   private move = (e): void => {
     const clientX = this.getClientX(e);
+    const clientY = this.getClientY(e);
     let offsetX = clientX - this.state.originX;
+    let offsetY = Math.abs(clientY - this.state.originY);
+    let totalY = this.state.totalY + offsetY;
     if (offsetX > 0) {
       if (offsetX > this.maxSlidedWidth) {
         // 超过最大移动范围，按极限值算
@@ -70,6 +92,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       }
       this.setState({
         offsetX,
+        totalY,
         // isMoving: true,
       });
     }
@@ -92,6 +115,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     e.preventDefault();
     this.setState({
       originX: this.getClientX(e),
+      originY: this.getClientY(e),
     });
   };
 
@@ -105,6 +129,21 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   };
 
   private handleTouchEnd = (): void => {
+    if(this.state.totalY <  (this.props.robotValidate && this.props.robotValidate.offsetY || 0) ) {
+      this.setState({
+        offsetX: 0,
+        originX: 0,
+        originY: 0,
+        totalY: 0,
+        isTouchEndSpan: false,
+        isMoving: false,
+        validated: validateStatus.error,
+      }, () => {
+        this.props.robotValidate && this.props.robotValidate.handler ? this.props.robotValidate.handler() : alert('请重试');
+      });
+      return;
+    }
+
     if (this.state.offsetX > 0) {
       const validateValue = this.state.offsetX / this.maxSlidedWidth;
       this.setState({
@@ -118,6 +157,8 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         this.setState({
           offsetX: 0,
           originX: 0,
+          originY: 0,
+          totalY: 0,
           isTouchEndSpan: false,
           isMoving: false,
           validated: validateStatus.init,
@@ -129,6 +170,8 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         isMoving: false,
         offsetX: 0,
         originX: 0,
+        originY: 0,
+        totalY: 0,
         validated: validateStatus.init,
       });
     }
@@ -168,6 +211,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     e.preventDefault();
     this.setState({
       originX: this.getClientX(e),
+      originY: this.getClientY(e),
       isMoving: true,
     });
   };
