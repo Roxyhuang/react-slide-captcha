@@ -77,7 +77,6 @@ class Demo extends React.Component<null, IState> {
         onRequest={this.resultCallback}
         containerClassName="test"
         tipsText="请向右滑动滑块填充拼图"
-        style={{width: '500px'}}
         robotValidate={{
           offsetY: 5,
           handler: ():void => {
