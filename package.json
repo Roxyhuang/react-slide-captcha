@@ -2,6 +2,12 @@
   "name": "react-slide-captcha",
   "version": "0.0.7",
   "license": "MIT",
+  "keywords": [
+    "slide-captcha",
+    "react",
+    "typescript"
+  ],
+  "author": "Neo_Huang",
   "browserslist": [
     ">1%",
     "last 4 versions",
@@ -90,6 +96,14 @@
     "build": "webpack -p --progress --colors",
     "mock": "ts-node mock/server.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Roxyhuang/react-slide-captcha.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Roxyhuang/react-slide-captcha/issues"
+  },
+  "homepage": "https://github.com/Roxyhuang/react-slide-captcha",
   "files": [
     "dist/*.css"
   ]
