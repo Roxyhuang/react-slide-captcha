@@ -22,7 +22,7 @@ class Demo extends React.Component<null, IState> {
       puzzleUrl: '',
       bgUrl: '',
       id: '',
-    }
+    };
   }
 
   componentDidMount() {
@@ -30,7 +30,7 @@ class Demo extends React.Component<null, IState> {
       this.setState({
         id: res.id,
         puzzleUrl: res.puzzleUrl,
-        bgUrl: res.bgUrl
+        bgUrl: res.bgUrl,
       });
     });
   }
@@ -43,14 +43,14 @@ class Demo extends React.Component<null, IState> {
     }).then((res) => {
       return res.data;
     });
-  };
+  }
 
-  resultCallback = (validateValue: number, validatedSuccess: (callback: () => any) => void, validatedFail?: (callback: () => any) => void ) => {
+  resultCallback = (validateValue: number, validatedSuccess: (callback: () => any) => void, validatedFail?: (callback: () => any) => void) => {
     axios({
       method: 'post',
       baseURL: 'http://localhost:5000',
       url: '/validate',
-      data: {id: this.state.id, distance: validateValue},
+      data: { id: this.state.id, distance: validateValue },
     }).then((res) => {
       const data = res.data;
       const code = data.code;
@@ -67,7 +67,7 @@ class Demo extends React.Component<null, IState> {
     }).catch(() => {
       console.log('报错啦');
     });
-  };
+  }
 
   render() {
     return(
@@ -76,15 +76,16 @@ class Demo extends React.Component<null, IState> {
         bgUrl={this.state.bgUrl}
         onRequest={this.resultCallback}
         containerClassName="test"
+        style={{ marginTop: '200px' }}
         tipsText="请向右滑动滑块填充拼图"
         robotValidate={{
           offsetY: 5,
           handler: ():void => {
             alert('错误，您并非人类');
-          }
+          },
         }}
       />
-    )
+    );
   }
 }
 

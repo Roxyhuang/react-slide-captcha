@@ -9,6 +9,11 @@ enum validateStatus{
   error = -1,
 }
 
+enum imgDisplayStatus {
+  show =  'block',
+  hidden = 'none',
+}
+
 type robotValidateConfig =  {
   offsetY: number,
   handler: () => any,
@@ -35,6 +40,7 @@ interface IState {
   validated: validateStatus;
   isMoving: boolean;
   isTouchEndSpan: boolean;
+  imgDisplayStatus: imgDisplayStatus;
 }
 
 class SlideCaptcha extends React.Component<IProps, IState>{
@@ -46,6 +52,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     validated: validateStatus.init,
     isMoving: false,
     isTouchEndSpan: false,
+    imgDisplayStatus: imgDisplayStatus.hidden
   };
   constructor(props: IProps) {
     super(props);
@@ -54,7 +61,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   componentDidMount() {
     setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
-    }, 0);
+    }, 200);
   }
 
   private maxSlidedWidth: number = 0;
@@ -83,11 +90,10 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     const clientX = this.getClientX(e);
     const clientY = this.getClientY(e);
     let offsetX = clientX - this.state.originX;
-    let offsetY = Math.abs(clientY - this.state.originY);
-    let totalY = this.state.totalY + offsetY;
+    const offsetY = Math.abs(clientY - this.state.originY);
+    const totalY = this.state.totalY + offsetY;
     if (offsetX > 0) {
       if (offsetX > this.maxSlidedWidth) {
-        // 超过最大移动范围，按极限值算
         offsetX = this.maxSlidedWidth;
       }
       this.setState({
@@ -113,6 +119,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   private handleTouchStart = (e): void => {
     e.preventDefault();
+    this.handleMoveOver(e);
     this.setState({
       originX: this.getClientX(e),
       originY: this.getClientY(e),
@@ -128,7 +135,8 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     });
   };
 
-  private handleTouchEnd = (): void => {
+  private handleTouchEnd = (e): void => {
+    this.handleMoveOut(e);
     if(this.state.totalY <  (this.props.robotValidate && this.props.robotValidate.offsetY || 0) ) {
       this.setState({
         offsetX: 0,
@@ -228,7 +236,25 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     this.setState({
       isMoving: false,
     });
-    this.handleTouchEnd();
+    this.handleTouchEnd(e);
+  };
+
+  handleMoveOut = (e) => {
+    e.preventDefault();
+    if(this.state.imgDisplayStatus === imgDisplayStatus.show && this.state.isMoving !== true){
+      this.setState({
+        imgDisplayStatus: imgDisplayStatus.hidden,
+      });
+    }
+  };
+
+  handleMoveOver = (e) => {
+    e.preventDefault();
+    if(this.state.imgDisplayStatus === imgDisplayStatus.hidden){
+      this.setState({
+        imgDisplayStatus: imgDisplayStatus.show,
+      });
+    }
   };
 
   render() {
@@ -252,7 +278,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           onMouseMove={this.handlerMouseMove}
           onMouseUp={this.handlerMouseUp}
         >
-          <div className="panel">
+          <div className="panel" style={{display: this.state.imgDisplayStatus}}>
             <img src={this.props.bgUrl} className="bgImg" />
             <img
                 src={this.props.puzzleUrl}
@@ -272,6 +298,8 @@ class SlideCaptcha extends React.Component<IProps, IState>{
                  onTouchMove={this.handleTouchMove}
                  onTouchEnd={this.handleTouchEnd}
                  onMouseDown={this.handlerMouseDown}
+                 onMouseOver={this.handleMoveOver}
+                 onMouseOut={this.handleMoveOut}
             >
               {slidedImage}
             </div>
