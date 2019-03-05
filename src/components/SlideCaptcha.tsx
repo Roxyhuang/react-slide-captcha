@@ -27,6 +27,8 @@ interface IProps {
   readonly slidedImageSuccess?: any;
   readonly slidedImageError?: any;
   readonly containerClassName?: string;
+  readonly tipsClassName?: string;
+  readonly tipsStyle? : object;
   readonly style?: object;
   readonly tipsText?: string;
   readonly robotValidate?: robotValidateConfig
@@ -303,7 +305,12 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             >
               {slidedImage}
             </div>
-            <div className="tips">
+            <div
+              className={`tips ${this.props.tipsClassName ?
+              this.props.tipsClassName : ''
+              }`}
+              style={this.props.tipsStyle || {} }
+            >
               <span>
                 {this.props.tipsText || '向右滑动滑块填充拼图'}
               </span>

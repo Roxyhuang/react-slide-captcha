@@ -43,5 +43,7 @@ import 'react-slide-captcha/dist/styles.css';
 | **containerClassName** | 容器样式类名（可选） | any | -|
 | **style**| 容器样式（可选） | object | - |
 | **tipsText**| 提示文字（可选） | string | - |
+| **tipsClassName** | 提示文字样式类名（可选） | any | -|
+| **tipsStyle**| 提示文字样式（可选） | object | - |
 | **robotValidate**| 机器人校验配置（可选） | object: {  offsetY: number, handler: () => any,} | - |
 

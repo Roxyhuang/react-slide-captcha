@@ -76,6 +76,8 @@ class Demo extends React.Component<null, IState> {
         bgUrl={this.state.bgUrl}
         onRequest={this.resultCallback}
         containerClassName="test"
+        tipsClassName="testTips"
+        tipsStyle={{color: '#444444'}}
         style={{ marginTop: '200px' }}
         tipsText="请向右滑动滑块填充拼图"
         robotValidate={{

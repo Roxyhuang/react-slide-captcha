@@ -43,5 +43,7 @@ import 'react-slide-captcha/dist/styles.css';
 | **containerClassName** | container class（optional） | any | -|
 | **style**| container style（optional） | object | - |
 | **tipsText**| text for tips（optional） | string | - |
+| **tipsClassName** | tips class（optional） | any | -|
+| **tipsStyle**| tips style（optional） | object | - |
 | **robotValidate**| robot validate config（optional） | object: {  offsetY: number, handler: () => any,} | - |
 
