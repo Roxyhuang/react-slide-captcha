@@ -172,6 +172,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           isTouchEndSpan: false,
           isMoving: false,
           validated: validateStatus.init,
+          imgDisplayStatus: imgDisplayStatus.hidden
         });
       }, 500);
     } else {
@@ -183,6 +184,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         originY: 0,
         totalY: 0,
         validated: validateStatus.init,
+        imgDisplayStatus: imgDisplayStatus.hidden
       });
     }
   };

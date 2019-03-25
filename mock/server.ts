@@ -11,6 +11,7 @@ const router = require('koa-router')();
 const staticServer = require("koa-static");
 
 const bgMap = [
+  {bg: 'http://localhost:5000/bg00.png', puzzle: 'http://localhost:5000/puzzle00.png' },
   {bg: 'http://localhost:5000/bg01.png', puzzle: 'http://localhost:5000/puzzle01.png' },
   {bg: 'http://localhost:5000/bg02.png', puzzle: 'http://localhost:5000/puzzle02.png' },
   {bg: 'http://localhost:5000/bg03.png', puzzle: 'http://localhost:5000/puzzle03.png' },
@@ -26,16 +27,19 @@ const validate =(id, distance):object => {
   let matched: boolean = false;
   switch (id) {
     case 0 :
-      matched = percentage > 0.42 && percentage < 0.46;
+      matched = percentage > 0.42 && percentage < 0.52; // 0.47
       break;
     case 1:
-      matched = percentage > 0.26 && percentage < 0.47;
+      matched = percentage > 0.28 && percentage < 0.38; // 0.33
       break;
     case 2:
-      matched = percentage > 0.80 && percentage < 0.84;
+      matched = percentage > 0.84 && percentage < 0.94; // 0.89
       break;
     case 3:
-      matched = percentage > 0.32 && percentage < 0.38;
+      matched = percentage > 0.33 && percentage < 0.43; // 0.38
+      break;
+    case 4:
+      matched = percentage > 0.80 && percentage < 0.90; // 0.85
       break;
   }
 

@@ -77,8 +77,8 @@ class Demo extends React.Component<null, IState> {
         onRequest={this.resultCallback}
         containerClassName="test"
         tipsClassName="testTips"
-        tipsStyle={{color: '#444444'}}
-        style={{ marginTop: '200px' }}
+        tipsStyle={{color: '#444444',fontSize: '0.1rem'}}
+        style={{ marginTop: '400px', width: '8rem' }}
         tipsText="请向右滑动滑块填充拼图"
         robotValidate={{
           offsetY: 5,
