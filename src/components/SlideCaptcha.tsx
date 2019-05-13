@@ -14,6 +14,11 @@ enum imgDisplayStatus {
   hidden = 'none',
 }
 
+enum reFreshTypeMap {
+  auto = 'auto',
+  button = 'button',
+}
+
 type robotValidateConfig =  {
   offsetY: number,
   handler: () => any,
@@ -31,7 +36,9 @@ interface IProps {
   readonly tipsStyle? : object;
   readonly style?: object;
   readonly tipsText?: string;
-  readonly robotValidate?: robotValidateConfig
+  readonly robotValidate?: robotValidateConfig;
+  readonly refresh?: reFreshTypeMap;
+  readonly onRefresh?: () => any;
 }
 
 interface IState {
@@ -54,7 +61,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     validated: validateStatus.init,
     isMoving: false,
     isTouchEndSpan: false,
-    imgDisplayStatus: imgDisplayStatus.hidden
+    imgDisplayStatus: imgDisplayStatus.hidden,
   };
   constructor(props: IProps) {
     super(props);
@@ -64,6 +71,12 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
     }, 200);
+  }
+
+  componentWillReceiveProps(nextProps: Readonly<IProps>, nextContext: any): void {
+      if(!nextProps.onRefresh) {
+          this.reFreshCaptcha();
+      }
   }
 
   private maxSlidedWidth: number = 0;
@@ -163,29 +176,29 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       if (this.props.onRequest) {
         this.props.onRequest(validateValue, this.validatedSuccess, this.validatedFail);
       }
-      setTimeout(() => {
-        this.setState({
-          offsetX: 0,
-          originX: 0,
-          originY: 0,
-          totalY: 0,
-          isTouchEndSpan: false,
-          isMoving: false,
-          validated: validateStatus.init,
-          imgDisplayStatus: imgDisplayStatus.hidden
-        });
-      }, 500);
+      if(this.props.refresh === reFreshTypeMap.auto) {
+        setTimeout(() => {
+          this.reFreshCaptcha();
+        }, 500);
+      }
     } else {
-      this.setState({
-        isTouchEndSpan: false,
-        isMoving: false,
-        offsetX: 0,
-        originX: 0,
-        originY: 0,
-        totalY: 0,
-        validated: validateStatus.init,
-        imgDisplayStatus: imgDisplayStatus.hidden
-      });
+      this.reFreshCaptcha();
+    }
+  };
+
+  reFreshCaptcha = () => {
+    this.setState({
+      offsetX: 0,
+      originX: 0,
+      originY: 0,
+      totalY: 0,
+      isTouchEndSpan: false,
+      isMoving: false,
+      validated: validateStatus.init,
+      imgDisplayStatus: imgDisplayStatus.hidden
+    });
+    if(this.props.onRefresh) {
+      this.props.onRefresh();
     }
   };
 
@@ -319,6 +332,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             </div>
           </div>
         </div>
+          <div>
+              <button onClick={this.reFreshCaptcha}>刷新</button>
+          </div>
       </div>
     );
   }

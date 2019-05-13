@@ -45,6 +45,16 @@ class Demo extends React.Component<null, IState> {
     });
   }
 
+  handleGetPuzzleInfo =  () => {
+    this.getPuzzleInfo().then((res) => {
+      this.setState({
+        id: res.id,
+        puzzleUrl: res.puzzleUrl,
+        bgUrl: res.bgUrl,
+      });
+    });
+  }
+
   resultCallback = (validateValue: number, validatedSuccess: (callback: () => any) => void, validatedFail?: (callback: () => any) => void) => {
     axios({
       method: 'post',
@@ -69,12 +79,15 @@ class Demo extends React.Component<null, IState> {
     });
   }
 
+  test = () => console.log('refresh') ;
+
   render() {
     return(
       <SlideCaptcha
         puzzleUrl={this.state.puzzleUrl}
         bgUrl={this.state.bgUrl}
         onRequest={this.resultCallback}
+        onRefresh={this.handleGetPuzzleInfo}
         containerClassName="test"
         tipsClassName="testTips"
         tipsStyle={{color: '#444444',fontSize: '0.1rem'}}
