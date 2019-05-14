@@ -47,6 +47,7 @@ class Demo extends React.Component<null, IState> {
 
   handleGetPuzzleInfo =  () => {
     this.getPuzzleInfo().then((res) => {
+      console.log(123);
       this.setState({
         id: res.id,
         puzzleUrl: res.puzzleUrl,
@@ -83,23 +84,27 @@ class Demo extends React.Component<null, IState> {
 
   render() {
     return(
-      <SlideCaptcha
-        puzzleUrl={this.state.puzzleUrl}
-        bgUrl={this.state.bgUrl}
-        onRequest={this.resultCallback}
-        onRefresh={this.handleGetPuzzleInfo}
-        containerClassName="test"
-        tipsClassName="testTips"
-        tipsStyle={{color: '#444444',fontSize: '0.1rem'}}
-        style={{ marginTop: '400px', width: '8rem' }}
-        tipsText="请向右滑动滑块填充拼图"
-        robotValidate={{
-          offsetY: 5,
-          handler: ():void => {
-            alert('错误，您并非人类');
-          },
-        }}
-      />
+      <div>
+        <SlideCaptcha
+          puzzleUrl={this.state.puzzleUrl}
+          bgUrl={this.state.bgUrl}
+          onRequest={this.resultCallback}
+          onReset={this.handleGetPuzzleInfo}
+          containerClassName="test"
+          tipsClassName="testTips"
+          tipsStyle={{color: '#444444',fontSize: '0.1rem'}}
+          style={{ marginTop: '400px', width: '1000px' }}
+          tipsText="请向右滑动滑块填充拼图"
+          reset="manual"
+          robotValidate={{
+            offsetY: 5,
+            handler: ():void => {
+              alert('错误，您并非人类');
+            },
+          }}
+        />
+        <button onClick={this.handleGetPuzzleInfo}>123</button>
+      </div>
     );
   }
 }
