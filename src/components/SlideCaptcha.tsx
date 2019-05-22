@@ -27,7 +27,7 @@ type robotValidateConfig =  {
 interface IProps {
   readonly puzzleUrl: string;
   readonly bgUrl: string;
-  readonly onRequest: (validateValue: number, validatedSuccess: any, validatedFail?: any) => void;
+  readonly onRequest: (validateValue: number, validatedSuccess: any, validatedFail?: any, resetCaptcha?: any) => void;
   readonly slidedImage?: any;
   readonly slidedImageSuccess?: any;
   readonly slidedImageError?: any;
@@ -174,6 +174,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   private handleTouchStart = (e): void => {
     e.preventDefault();
+    if(this.state.isTouchEndSpan) {
+      return;
+    }
     this.handleMoveOver(e);
     this.setState({
       originX: this.getClientX(e),
@@ -183,6 +186,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   private handleTouchMove = (e): void => {
     e.preventDefault();
+    if(this.state.isTouchEndSpan) {
+      return;
+    }
     this.move(e);
     this.setState({
       isMoving: true,
@@ -190,7 +196,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   };
 
   private handleTouchEnd = (e): void => {
-    // this.handleMoveOut(e);
+    if(this.state.isTouchEndSpan) {
+      return;
+    }
     if(this.state.totalY <  (this.props.robotValidate && this.props.robotValidate.offsetY || 0) ) {
       this.setState({
         offsetX: 0,
@@ -214,7 +222,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         isMoving: false,
       });
       if (this.props.onRequest) {
-        this.props.onRequest(validateValue, this.validatedSuccess, this.validatedFail);
+        this.props.onRequest(validateValue, this.validatedSuccess, this.validatedFail, this.resetCaptcha);
       }
     } else {
       this.resetCaptcha();
@@ -269,6 +277,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handlerMouseDown = (e) => {
     e.preventDefault();
+    if(this.state.isTouchEndSpan) {
+      return;
+    }
     this.setState({
       originX: this.getClientX(e),
       originY: this.getClientY(e),
@@ -278,6 +289,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handlerMouseMove = (e) => {
     e.preventDefault();
+    if(this.state.isTouchEndSpan) {
+      return;
+    }
     if (this.state.isMoving) {
       this.move(e);
     }
@@ -285,8 +299,12 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handlerMouseUp = (e) => {
     e.preventDefault();
+    if(this.state.isTouchEndSpan) {
+      return;
+    }
     this.setState({
       isMoving: false,
+      // isTouchEndSpan: true,
     });
     this.handleTouchEnd(e);
   };
@@ -381,9 +399,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             </div>
           </div>
         </div>
-        <div className="reset">
-          <button className="reset-btn" onClick={this.resetCaptcha}>刷新</button>
-        </div>
+        {/*<div className="reset">*/}
+          {/*<button className="reset-btn" onClick={this.resetCaptcha}>刷新</button>*/}
+        {/*</div>*/}
       </div>
     );
   }
