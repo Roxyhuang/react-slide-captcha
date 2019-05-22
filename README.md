@@ -46,4 +46,5 @@ import 'react-slide-captcha/dist/styles.css';
 | **tipsClassName** | tips class（optional） | any | -|
 | **tipsStyle**| tips style（optional） | object | - |
 | **robotValidate**| robot validate config（optional） | object: {  offsetY: number, handler: () => any,} | - |
-
+| **reset**| component reset type（optional） | string | auto |
+| **onReset**| reset call back（optional） | () => any | - |

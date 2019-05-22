@@ -46,4 +46,6 @@ import 'react-slide-captcha/dist/styles.css';
 | **tipsClassName** | 提示文字样式类名（可选） | any | -|
 | **tipsStyle**| 提示文字样式（可选） | object | - |
 | **robotValidate**| 机器人校验配置（可选） | object: {  offsetY: number, handler: () => any,} | - |
+| **reset**| 组件刷新方式（可选） | string | auto |
+| **onReset**| 组件刷新回调（可选） | () => any | - |
 
