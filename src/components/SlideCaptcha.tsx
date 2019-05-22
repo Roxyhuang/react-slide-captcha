@@ -79,7 +79,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
     document.addEventListener('mousemove', this.listenMouseMove);
 
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
     }, 200);
   }
@@ -102,12 +102,14 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   componentWillUnmount() {
     document.removeEventListener('mouseup', this.listenMouseUp);
     document.removeEventListener('mousemove', this.listenMouseMove);
-
+    clearTimeout(this.timeout);
+    this.timeout = null;
   }
 
   private maxSlidedWidth: number = 0;
   private ctrlWidth: any = null;
   private sliderWidth: any = null;
+  private timeout: any = null;
 
   private getClientX = (e): number => {
     if (e.type.indexOf('mouse') > -1) {
