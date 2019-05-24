@@ -10,6 +10,11 @@ import './main.less';
 // import * as cross from './assets/img/cross.svg';
 // render react DOM
 
+enum positionStringMap {
+  top =  'top',
+  bottom = 'bottom',
+}
+
 interface IState {
   puzzleUrl: string;
   bgUrl: string;
@@ -101,6 +106,8 @@ class Demo extends React.Component<null, IState> {
           tipsText="按住滑块，拖住完成下方拼图"
           style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
+          resetButton={true}
+            position={positionStringMap.bottom}
           robotValidate={{
             offsetY: 5,
             handler: ():void => {

@@ -19,6 +19,11 @@ enum resetTypeMap {
   manual = 'manual',
 }
 
+enum positionStringMap {
+  top =  'top',
+  bottom = 'bottom',
+}
+
 type robotValidateConfig =  {
   offsetY: number,
   handler: () => any,
@@ -42,6 +47,8 @@ interface IProps {
   readonly resetButtonStyle?: object;
   readonly reset?: string;
   readonly onReset?: () => any;
+  readonly position?: positionStringMap;
+  readonly isLoading?: boolean;
 }
 
 interface IState {
@@ -58,6 +65,8 @@ interface IState {
 class SlideCaptcha extends React.Component<IProps, IState>{
   public static defaultProps = {
     reset: resetTypeMap.auto,
+    resetButton: false,
+    position: positionStringMap.bottom,
   };
 
   state: IState = {
@@ -81,6 +90,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
     this.timeout = setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
+      this.otherHeight = this.ctrlWidth.clientHeight + this.reset.clientHeight;
     }, 200);
   }
 
@@ -110,6 +120,8 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   private ctrlWidth: any = null;
   private sliderWidth: any = null;
   private timeout: any = null;
+  private reset: any = null;
+  private otherHeight: number = 0;
 
   private getClientX = (e): number => {
     if (e.type.indexOf('mouse') > -1) {
@@ -352,6 +364,16 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       slidedImageSuccessValue,
       slidedImageErrorValue,
     );
+
+    let positionObj;
+
+    if(this.props.position === positionStringMap.top) {
+      positionObj = {display: this.state.imgDisplayStatus, top: `${this.otherHeight}px`}
+    } else {
+      positionObj = {display: this.state.imgDisplayStatus, bottom: `${this.otherHeight}px`}
+    }
+
+
     return(
       <div
         className={
@@ -364,7 +386,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           onMouseMove={this.handlerMouseMove}
           onMouseUp={this.handlerMouseUp}
         >
-          <div className="panel" style={{display: this.state.imgDisplayStatus}}>
+          <div className="panel" style={positionObj}>
             <img src={this.props.bgUrl} className="bgImg" />
             <img
                 src={this.props.puzzleUrl}
@@ -401,9 +423,13 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             </div>
           </div>
         </div>
-        {/*<div className="reset">*/}
-          {/*<button className="reset-btn" onClick={this.resetCaptcha}>刷新</button>*/}
-        {/*</div>*/}
+        {this.props.resetButton ?
+          (
+            <div className="reset" ref={(el) => { this.reset = el; } }>
+              <button className="reset-btn" onClick={this.resetCaptcha}>刷新</button>
+            </div>
+          ) : null
+        }
       </div>
     );
   }
