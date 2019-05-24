@@ -61,14 +61,6 @@ webpackConfig = {
           outputPath: './assets/img/',
         }
       },
-      // { test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
-      //   loader: 'file-loader',
-      //   options: {
-      //     name: '[path][name].[ext]',
-      //     publicPath: './',
-      //     outputPath: './assets/img/',
-      //   }
-      // }
     ]
   },
   optimization: {
