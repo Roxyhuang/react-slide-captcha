@@ -90,22 +90,14 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
     this.timeout = setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
-      this.otherHeight = this.ctrlWidth.clientHeight + this.reset.clientHeight;
+      const resetHeight = this.reset ? this.reset.clientHeight : 0;
+      this.otherHeight = this.ctrlWidth.clientHeight + resetHeight;
     }, 200);
   }
 
   componentWillReceiveProps(nextProps: Readonly<IProps>): void {
       if(nextProps.reset === resetTypeMap.manual){
-        this.setState({
-          offsetX: 0,
-          originX: 0,
-          originY: 0,
-          totalY: 0,
-          isTouchEndSpan: false,
-          isMoving: false,
-          validated: validateStatus.init,
-          imgDisplayStatus: imgDisplayStatus.hidden
-        });
+        this.resetCaptcha(false);
       }
   }
 
@@ -239,24 +231,40 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         this.props.onRequest(validateValue, this.validatedSuccess, this.validatedFail, this.resetCaptcha);
       }
     } else {
-      this.resetCaptcha();
+        this.resetCaptcha();
     }
   };
 
-  resetCaptcha = () => {
-    this.setState({
-      offsetX: 0,
-      originX: 0,
-      originY: 0,
-      totalY: 0,
-      isTouchEndSpan: false,
-      isMoving: false,
-      validated: validateStatus.init,
-      imgDisplayStatus: imgDisplayStatus.hidden
-    });
-    if(this.props.onReset) {
-      this.props.onReset();
-    }
+  resetCaptcha = (isReset: boolean = true) => {
+    const targetPercent = 0;
+    const speed = this.maxSlidedWidth / 30;
+    const animate = () => {
+      const percent = this.state.offsetX;
+      const currentProgress = percent < speed ? 0 : percent - speed;
+      if (percent > targetPercent) {
+        this.setState({
+          offsetX: currentProgress
+        }, () => {
+          window.requestAnimationFrame(animate);
+        });
+      } else {
+        this.setState({
+          offsetX: 0,
+          originX: 0,
+          originY: 0,
+          totalY: 0,
+          isTouchEndSpan: false,
+          isMoving: false,
+          validated: validateStatus.init,
+          imgDisplayStatus: imgDisplayStatus.hidden
+        }, () => {
+          if(this.props.onReset && isReset) {
+            this.props.onReset();
+          }
+        });
+      }
+    };
+    window.requestAnimationFrame(animate);
   };
 
   renderImage = ():any => {
@@ -426,7 +434,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         {this.props.resetButton ?
           (
             <div className="reset" ref={(el) => { this.reset = el; } }>
-              <button className="reset-btn" onClick={this.resetCaptcha}>刷新</button>
+              <button className="reset-btn" onClick={() => this.resetCaptcha()}>刷新</button>
             </div>
           ) : null
         }

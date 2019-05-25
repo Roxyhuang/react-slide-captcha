@@ -95,7 +95,7 @@ class Demo extends React.Component<null, IState> {
 
   render() {
     return(
-      <div>
+      <div style={{ height: '500px'}}>
         <SlideCaptcha
           puzzleUrl={this.state.puzzleUrl}
           bgUrl={this.state.bgUrl}
@@ -107,7 +107,7 @@ class Demo extends React.Component<null, IState> {
           style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
           resetButton={true}
-            position={positionStringMap.bottom}
+          position={positionStringMap.bottom}
           robotValidate={{
             offsetY: 5,
             handler: ():void => {
