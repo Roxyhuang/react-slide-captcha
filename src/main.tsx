@@ -107,7 +107,7 @@ class Demo extends React.Component<null, IState> {
           style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
           resetButton={true}
-          position={positionStringMap.bottom}
+          imagePosition={positionStringMap.top}
           robotValidate={{
             offsetY: 5,
             handler: ():void => {

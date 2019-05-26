@@ -47,7 +47,7 @@ interface IProps {
   readonly resetButtonStyle?: object;
   readonly reset?: string;
   readonly onReset?: () => any;
-  readonly position?: positionStringMap;
+  readonly imagePosition?: positionStringMap;
   readonly isLoading?: boolean;
 }
 
@@ -375,10 +375,10 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
     let positionObj;
 
-    if(this.props.position === positionStringMap.top) {
-      positionObj = {display: this.state.imgDisplayStatus, top: `${this.otherHeight}px`}
-    } else {
+    if(this.props.imagePosition === positionStringMap.top) {
       positionObj = {display: this.state.imgDisplayStatus, bottom: `${this.otherHeight}px`}
+    } else {
+      positionObj = {display: this.state.imgDisplayStatus, top: `${this.otherHeight}px`}
     }
 
 
@@ -389,19 +389,20 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             this.props.containerClassName : ''}`
         }
         style={this.props.style || {} }
+        onMouseMove={this.handlerMouseMove}
+        onMouseUp={this.handlerMouseUp}
       >
-        <div
-          onMouseMove={this.handlerMouseMove}
-          onMouseUp={this.handlerMouseUp}
-        >
-          <div className="panel" style={positionObj}>
+        <div className="panel" style={positionObj}>
+          <div className="bgContainer">
             <img src={this.props.bgUrl} className="bgImg" />
             <img
-                src={this.props.puzzleUrl}
-                className="puzzleImg"
-                style={{ left: `${this.state.offsetX}px` }}
+              src={this.props.puzzleUrl}
+              className="puzzleImg"
+              style={{ left: `${this.state.offsetX}px` }}
             />
           </div>
+        </div>
+        <div>
           <div
             className={`control ${ctrlClassName ? ctrlClassName : ''}`}
             ref={(el) => { this.ctrlWidth = el; } }
