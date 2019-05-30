@@ -19,6 +19,7 @@ interface IState {
   puzzleUrl: string;
   bgUrl: string;
   id: string;
+  isLoading: boolean;
 }
 
 class Demo extends React.Component<null, IState> {
@@ -28,6 +29,7 @@ class Demo extends React.Component<null, IState> {
       puzzleUrl: '',
       bgUrl: '',
       id: '',
+      isLoading: false,
     };
   }
 
@@ -52,11 +54,15 @@ class Demo extends React.Component<null, IState> {
   }
 
   handleGetPuzzleInfo =  () => {
+    this.setState({
+      isLoading: true,
+    });
     this.getPuzzleInfo().then((res) => {
       this.setState({
         id: res.id,
         puzzleUrl: res.puzzleUrl,
         bgUrl: res.bgUrl,
+        isLoading: false,
       });
     });
   }
@@ -106,6 +112,7 @@ class Demo extends React.Component<null, IState> {
           tipsText="按住滑块，拖住完成下方拼图"
           style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
+          isLoading={this.state.isLoading}
           resetButton={true}
           imagePosition={positionStringMap.top}
           robotValidate={{

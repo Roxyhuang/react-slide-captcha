@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import './styles/index.less';
+import * as loading from '../assets/img/loading.svg';
 
 enum validateStatus{
   init = 0,
@@ -48,6 +49,7 @@ interface IProps {
   readonly reset?: string;
   readonly onReset?: () => any;
   readonly imagePosition?: positionStringMap;
+  readonly loadingIcon? : React.Component | string;
   readonly isLoading?: boolean;
 }
 
@@ -67,6 +69,10 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     reset: resetTypeMap.auto,
     resetButton: false,
     position: positionStringMap.bottom,
+    isLoading: false,
+    loadingIcon: (
+      <img src={loading} className="slideCaptchaLoading" />
+    )
   };
 
   state: IState = {
@@ -180,7 +186,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   private handleTouchStart = (e): void => {
     e.preventDefault();
-    if(this.state.isTouchEndSpan) {
+    if(this.state.isTouchEndSpan || this.props.isLoading) {
       return;
     }
     this.handleMoveOver(e);
@@ -192,7 +198,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   private handleTouchMove = (e): void => {
     e.preventDefault();
-    if(this.state.isTouchEndSpan) {
+    if(this.state.isTouchEndSpan || this.props.isLoading) {
       return;
     }
     this.move(e);
@@ -202,7 +208,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   };
 
   private handleTouchEnd = (e): void => {
-    if(this.state.isTouchEndSpan) {
+    if(this.state.isTouchEndSpan || this.props.isLoading) {
       return;
     }
     if(this.state.totalY <  (this.props.robotValidate && this.props.robotValidate.offsetY || 0) ) {
@@ -256,7 +262,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           isTouchEndSpan: false,
           isMoving: false,
           validated: validateStatus.init,
-          imgDisplayStatus: imgDisplayStatus.hidden
+          imgDisplayStatus: imgDisplayStatus.hidden,
         }, () => {
           if(this.props.onReset && isReset) {
             this.props.onReset();
@@ -299,7 +305,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handlerMouseDown = (e) => {
     e.preventDefault();
-    if(this.state.isTouchEndSpan) {
+    if(this.state.isTouchEndSpan || this.props.isLoading) {
       return;
     }
     this.setState({
@@ -311,7 +317,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handlerMouseMove = (e) => {
     e.preventDefault();
-    if(this.state.isTouchEndSpan) {
+    if(this.state.isTouchEndSpan || this.props.isLoading) {
       return;
     }
     if (this.state.isMoving) {
@@ -321,7 +327,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handlerMouseUp = (e) => {
     e.preventDefault();
-    if(this.state.isTouchEndSpan) {
+    if(this.state.isTouchEndSpan || this.props.isLoading) {
       return;
     }
     this.setState({
@@ -393,14 +399,22 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         onMouseUp={this.handlerMouseUp}
       >
         <div className="panel" style={positionObj}>
-          <div className="bgContainer">
-            <img src={this.props.bgUrl} className="bgImg" />
-            <img
-              src={this.props.puzzleUrl}
-              className="puzzleImg"
-              style={{ left: `${this.state.offsetX}px` }}
-            />
-          </div>
+          {
+            this.props.isLoading ?
+              <div className="loadingContainer">
+                {this.props.loadingIcon}
+              </div>
+              : (
+              <div className="bgContainer">
+                <img src={this.props.bgUrl} className="bgImg" />
+                <img
+                  src={this.props.puzzleUrl}
+                  className="puzzleImg"
+                  style={{ left: `${this.state.offsetX}px` }}
+                />
+              </div>
+            )
+          }
         </div>
         <div>
           <div
