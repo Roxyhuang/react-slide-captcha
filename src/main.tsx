@@ -33,6 +33,8 @@ class Demo extends React.Component<null, IState> {
     };
   }
 
+  private aaa = null;
+
   componentDidMount() {
     this.getPuzzleInfo().then((res) => {
       this.setState({
@@ -97,12 +99,13 @@ class Demo extends React.Component<null, IState> {
     });
   }
 
-  test = () => console.log('refresh') ;
+  test = () => this.aaa.resetCaptcha();
 
   render() {
     return(
       <div style={{ height: '500px'}}>
         <SlideCaptcha
+          ref={ref => this.aaa = ref}
           puzzleUrl={this.state.puzzleUrl}
           bgUrl={this.state.bgUrl}
           onRequest={this.resultCallback}
@@ -113,7 +116,7 @@ class Demo extends React.Component<null, IState> {
           style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
           isLoading={this.state.isLoading}
-          resetButton={true}
+          resetButton="outline"
           imagePosition={positionStringMap.top}
           robotValidate={{
             offsetY: 5,
@@ -124,6 +127,9 @@ class Demo extends React.Component<null, IState> {
         />
         <div style={{ marginTop: '10px', width: '1000px', margin: '0 auto' }}>
           <button onClick={this.handleGetPuzzleInfo}>外部刷新</button>
+        </div>
+        <div style={{ marginTop: '10px', width: '1000px', margin: '0 auto' }}>
+          <button onClick={this.test}>测试</button>
         </div>
       </div>
     );

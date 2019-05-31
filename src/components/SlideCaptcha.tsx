@@ -3,6 +3,9 @@
 import * as React from 'react';
 import './styles/index.less';
 import * as loading from '../assets/img/loading.svg';
+import * as arrow from '../assets/img/arrow.svg';
+import * as arrow_white from '../assets/img/arrow_white.svg';
+import * as cross from '../assets/img/cross.svg';
 
 enum validateStatus{
   init = 0,
@@ -25,6 +28,12 @@ enum positionStringMap {
   bottom = 'bottom',
 }
 
+enum resetButtonMap {
+  none = 'none',
+  inline = 'inline',
+  outline = 'outline'
+}
+
 type robotValidateConfig =  {
   offsetY: number,
   handler: () => any,
@@ -43,7 +52,7 @@ interface IProps {
   readonly style?: object;
   readonly tipsText?: string;
   readonly robotValidate?: robotValidateConfig;
-  readonly resetButton?: boolean;
+  readonly resetButton?: string;
   readonly resetButtonClass?: string;
   readonly resetButtonStyle?: object;
   readonly reset?: string;
@@ -67,9 +76,12 @@ interface IState {
 class SlideCaptcha extends React.Component<IProps, IState>{
   public static defaultProps = {
     reset: resetTypeMap.auto,
-    resetButton: false,
+    resetButton: resetButtonMap.none,
     position: positionStringMap.bottom,
     isLoading: false,
+    slidedImage: ( <img src={arrow} style={{width: '18px'}} />),
+    slidedImageSuccess: ( <img src={arrow_white} style={{width: '18px'}} />),
+    slidedImageError: ( <img src={cross} style={{width: '18px'}} />),
     loadingIcon: (
       <img src={loading} className="slideCaptchaLoading" />
     )
@@ -96,7 +108,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
     this.timeout = setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
-      const resetHeight = this.reset ? this.reset.clientHeight : 0;
+      const resetHeight = this.reset && this.props.resetButton === resetButtonMap.outline ? this.reset.clientHeight + 1 : 0;
       this.otherHeight = this.ctrlWidth.clientHeight + resetHeight;
     }, 200);
   }
@@ -415,6 +427,13 @@ class SlideCaptcha extends React.Component<IProps, IState>{
               </div>
             )
           }
+          {this.props.resetButton === resetButtonMap.inline ?
+            (
+              <div className="reset inline" ref={(el) => { this.reset = el; } }>
+                <button className="reset-btn" onClick={() => this.resetCaptcha()}>刷新</button>
+              </div>
+            ) : null
+          }
         </div>
         <div>
           <div
@@ -446,9 +465,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             </div>
           </div>
         </div>
-        {this.props.resetButton ?
+        {this.props.resetButton === resetButtonMap.outline ?
           (
-            <div className="reset" ref={(el) => { this.reset = el; } }>
+            <div className="reset outline" ref={(el) => { this.reset = el; } }>
               <button className="reset-btn" onClick={() => this.resetCaptcha()}>刷新</button>
             </div>
           ) : null

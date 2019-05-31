@@ -103,9 +103,10 @@
     }
 
     .slider {
-      color: #777;
+      color: #fff;
       border: none;
       border-radius: 0;
+      background-color: lightblue;
     }
   }
 
@@ -124,6 +125,13 @@
   }
 
   .slider-error {
+
+    .slider {
+      border: 1px solid #f57a7a;
+      border-right: 0;
+      background-color: #fce1e1;
+    }
+
     .slided {
       border: 1px solid #f57a7a;
       border-right: 0;
@@ -132,6 +140,13 @@
   }
 
   .slider-success {
+
+    .slider {
+      border: 1px solid darkgreen;
+      border-right: 0;
+      background-color: darkseagreen;
+    }
+
     .slided {
       border: 1px solid darkgreen;
       border-right: 0;
@@ -141,14 +156,23 @@
 
   .reset {
     height: 60px;
-    width: 100%;
+    width: 60px;
     display: flex;
     align-items: center;
-
     .reset-btn {
       width: 60px;
       height: 40px;
     }
   }
+}
+
+.outline {
+
+}
+
+.inline {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
