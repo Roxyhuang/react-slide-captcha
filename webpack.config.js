@@ -3,8 +3,9 @@ var path = require('path');
 
 // variables
 var isProduction = process.argv.indexOf('-p') >= 0;
+var isPreview = process.argv.indexOf('--pv') >= 0;
 var sourcePath = path.join(__dirname, './src');
-var outPath = path.join(__dirname, './dist');
+var outPath = isPreview ? path.join(__dirname, './preview'):  path.join(__dirname, './dist');
 
 // plugins
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -20,7 +21,7 @@ var webpackConfig;
 webpackConfig = {
   context: sourcePath,
   output: {
-    path: outPath,
+    path: outPath ,
     filename: `[name]${isProduction ? '.min' : ''}.js`,
     // chunkFilename: '[chunkhash].js',
     publicPath: '/',

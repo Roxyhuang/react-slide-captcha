@@ -3,12 +3,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SlideCaptcha from './components/SlideCaptcha';
-import axios from 'axios';
+import { getPuzzle, validate }  from '../mock/mock';
 import './main.less';
-// import * as arrow from './assets/img/arrow.svg';
-// import * as arrow_white from './assets/img/arrow_white.svg';
-// import * as cross from './assets/img/cross.svg';
-// render react DOM
 
 enum positionStringMap {
   top =  'top',
@@ -46,14 +42,11 @@ class Demo extends React.Component<null, IState> {
   }
 
   getPuzzleInfo = async () => {
-    return await axios({
-      method: 'post',
-      baseURL: 'http://localhost:5000',
-      url: '/getPuzzle',
-    }).then((res) => {
-      return res.data;
+    return await getPuzzle().then((res) => {
+      const data = JSON.parse(res);
+      return data;
     });
-  }
+  };
 
   handleGetPuzzleInfo =  () => {
     this.setState({
@@ -75,29 +68,24 @@ class Demo extends React.Component<null, IState> {
     validatedFail?: (callback: () => any) => void,
     resetCaptcha?: () => void,
   ) => {
-    axios({
-      method: 'post',
-      baseURL: 'http://localhost:5000',
-      url: '/validate',
-      data: { id: this.state.id, distance: validateValue },
-    }).then((res) => {
-      const data = res.data;
-      const code = data.code;
-      if (code === 100) {
-        validatedSuccess(() => {
-          alert('验证成功，此处可以验证成功代码');
-        });
+    validate({id: this.state.id, distance: validateValue}).then(res => {
+        const data = JSON.parse(res);
+        const { code } = data;
+        if (code === 100) {
+          validatedSuccess(() => {
+            alert('验证成功，此处可以验证成功代码');
+          });
 
-      } else {
-        validatedFail(() => {
-          alert('验证失败，处可以处理验证失败代码');
-        });
-      }
+        } else {
+          validatedFail(() => {
+            alert('验证失败，处可以处理验证失败代码');
+          });
+        }
     }).catch(() => {
-      console.log('报错啦');
-      resetCaptcha();
+        console.log('报错啦');
+        resetCaptcha();
     });
-  }
+  };
 
   test = () => this.aaa.resetCaptcha();
 
