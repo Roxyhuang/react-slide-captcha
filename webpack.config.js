@@ -107,7 +107,7 @@ webpackConfig = {
   },
 };
 // dev config
-if (!isProduction) {
+if (!isProduction && !isPreview) {
   webpackConfig.entry = {
     slideCaptcha: './main.tsx'
   };
@@ -169,7 +169,63 @@ if (!isProduction) {
     stats: 'minimal'
   }
 // prod config
-} else {
+} else if(isPreview && isProduction) {
+
+  webpackConfig.entry = {
+    slideCaptcha: './main.tsx'
+  };
+
+  webpackConfig.output.publicPath = './';
+
+  webpackConfig.module.rules.push(
+    {
+      test: /\.css|less$/,
+      exclude: [path.resolve('node_modules')],
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          query: {
+            modules: false,
+            sourceMap: true,
+            importLoaders: 1,
+            localIdentName: '[local]__[hash:base64:5]'
+          }
+        },
+        {
+          loader: "less-loader",
+          query: {
+            modules: false,
+            sourceMap: true,
+            importLoaders: 1,
+            localIdentName: '[local]__[hash:base64:5]'
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            ident: 'postcss',
+            plugins: [
+              require('postcss-import')({ addDependencyTo: webpack }),
+              require('postcss-url')(),
+              require('autoprefixer')({
+                browsers: pkg.browserslist,
+                flexbox: true,
+              }),
+              require('postcss-reporter')(),
+            ]
+          }
+        }
+      ]
+    }
+  );
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      template: '../index.html',
+    }),
+  );
+
+} else if(!isPreview && isProduction) {
   webpackConfig.entry = {
     slideCaptcha: './index.tsx'
   };
