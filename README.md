@@ -1,7 +1,7 @@
 # react-slide-captcha
 
 [![Build Status](https://travis-ci.org/boennemann/badges.svg?branch=master)](https://travis-ci.org/boennemann/badges)
-[！[ experimental ]（http://badges.github.io/stability-badges/dist/experimental.svg）]（http://github.com/badges/stability-badges）
+[![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 
 
 ## 1.Usage
