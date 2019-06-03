@@ -8,10 +8,9 @@ script:
   - npm run preview
 
 after_script:
-  - cd ./preview
-  - pwd
-  - ls
-  - git clone https://${GH_REPO}
+  - git clone https://${GH_REPO} depoly
+  - cp -R preview/ depoly/
+  - cd depoly
   - git config user.name "${USER_NAME}"
   - git config user.email "${USER_EMAIL}"
   - git add .
