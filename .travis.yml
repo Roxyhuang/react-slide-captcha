@@ -9,6 +9,8 @@ script:
 
 after_script:
   - cd ./preview
+  - pwd
+  - ls
   - git clone https://${GH_REPO}
   - git config user.name "${USER_NAME}"
   - git config user.email "${USER_EMAIL}"
