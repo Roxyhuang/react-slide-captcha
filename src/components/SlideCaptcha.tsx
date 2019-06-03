@@ -34,6 +34,11 @@ enum resetButtonMap {
   outline = 'outline'
 }
 
+enum displayTypeMap {
+  hover = 'hover',
+  static = 'static',
+}
+
 type robotValidateConfig =  {
   offsetY: number,
   handler: () => any,
@@ -60,6 +65,7 @@ interface IProps {
   readonly imagePosition?: positionStringMap;
   readonly loadingIcon? : React.Component | string;
   readonly isLoading?: boolean;
+  readonly displayType: string;
 }
 
 interface IState {
@@ -71,10 +77,12 @@ interface IState {
   isMoving: boolean;
   isTouchEndSpan: boolean;
   imgDisplayStatus: imgDisplayStatus;
+  otherHeight: number
 }
 
 class SlideCaptcha extends React.Component<IProps, IState>{
   public static defaultProps = {
+    displayType: displayTypeMap.hover,
     reset: resetTypeMap.auto,
     resetButton: resetButtonMap.none,
     position: positionStringMap.bottom,
@@ -96,6 +104,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     isMoving: false,
     isTouchEndSpan: false,
     imgDisplayStatus: imgDisplayStatus.hidden,
+    otherHeight: 0,
   };
   constructor(props: IProps) {
     super(props);
@@ -109,7 +118,10 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     this.timeout = setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
       const resetHeight = this.reset && this.props.resetButton === resetButtonMap.outline ? this.reset.clientHeight + 1 : 0;
-      this.otherHeight = this.ctrlWidth.clientHeight + resetHeight;
+      this.setState({
+        otherHeight:this.ctrlWidth.clientHeight + resetHeight
+      });
+      // this.otherHeight = this.ctrlWidth.clientHeight + resetHeight;
     }, 200);
   }
 
@@ -131,7 +143,6 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   private sliderWidth: any = null;
   private timeout: any = null;
   private reset: any = null;
-  private otherHeight: number = 0;
 
   private getClientX = (e): number => {
     if (e.type.indexOf('mouse') > -1) {
@@ -392,11 +403,18 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     );
 
     let positionObj;
+    let displayType;
 
     if(this.props.imagePosition === positionStringMap.top) {
-      positionObj = {display: this.state.imgDisplayStatus, bottom: `${this.otherHeight}px`}
+      positionObj = { bottom: `${this.state.otherHeight}px` }
     } else {
-      positionObj = {display: this.state.imgDisplayStatus, top: `${this.otherHeight}px`}
+      positionObj = { top: `${this.state.otherHeight}px` }
+    }
+
+    if(this.props.displayType === displayTypeMap.hover) {
+      displayType = { display: this.state.imgDisplayStatus };
+    } else {
+      displayType = { display: imgDisplayStatus.show };
     }
 
 
@@ -410,7 +428,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         onMouseMove={this.handlerMouseMove}
         onMouseUp={this.handlerMouseUp}
       >
-        <div className="panel" style={positionObj}>
+        <div className="panel" style={{ ...positionObj, ...displayType}}>
           {
             this.props.isLoading ?
               <div className="loadingContainer">

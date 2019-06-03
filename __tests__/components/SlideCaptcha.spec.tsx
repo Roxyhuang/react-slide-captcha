@@ -4,6 +4,7 @@ import SlideCaptcha from '../../src/index';
 
 test('SlideCaptcha', () => {
   const component = shallow(<SlideCaptcha
+    displayType="hover"
     puzzleUrl="www.baidu.com"
     bgUrl="www.baidu.com"
     onRequest={() => console.log(123)}

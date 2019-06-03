@@ -94,6 +94,7 @@ class Demo extends React.Component<null, IState> {
       <div style={{ height: '500px'}}>
         <SlideCaptcha
           ref={ref => this.aaa = ref}
+          displayType="static"
           puzzleUrl={this.state.puzzleUrl}
           bgUrl={this.state.bgUrl}
           onRequest={this.resultCallback}

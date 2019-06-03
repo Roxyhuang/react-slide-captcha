@@ -9,7 +9,7 @@ script:
 
 after_script:
   - git clone https://${GH_REPO} depoly
-  - cp -R preview/* depoly/
+  - cp -R preview/ depoly/
   - cd depoly
   - git config user.name "${USER_NAME}"
   - git config user.email "${USER_EMAIL}"
