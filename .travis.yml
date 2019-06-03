@@ -5,4 +5,20 @@ node_js:
 install:
   - npm install
 script:
-  - npm run build
+  - npm run preview
+
+after_script:
+  - cd ./preview
+  - git clone https://${GH_REPO}
+  - git config user.name "${USER_NAME}"
+  - git config user.email "${USER_EMAIL}"
+  - git add .
+  - git commit -m "Update github pages [skip ci]"
+  - git push https://${GH_TOKEN}@${GH_REPO} master
+
+branches:
+  only:
+    - master
+
+env:
+ global:
