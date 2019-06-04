@@ -98,7 +98,7 @@ webpackConfig = {
     ),
     // new BundleAnalyzerPlugin(),
   ],
-  devtool: 'cheap-module-eval-source-map',
+  devtool: isProduction? 'nosources-source-map' : 'cheap-module-eval-source-map',
   node: {
     // workaround for webpack-dev-server issue
     // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
@@ -284,7 +284,10 @@ if (!isProduction && !isPreview) {
       amd: 'react-dom',
       umd: 'react-dom',
     },
-  }
+  };
+  // webpackConfig.plugins.push(
+  //   new BundleAnalyzerPlugin(),
+  // );
 }
 
 module.exports = webpackConfig;
