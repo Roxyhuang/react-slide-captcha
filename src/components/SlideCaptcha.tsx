@@ -6,6 +6,7 @@ import * as loading from '../assets/img/loading.svg';
 import * as arrow from '../assets/img/arrow.svg';
 import * as arrow_white from '../assets/img/arrow_white.svg';
 import * as cross from '../assets/img/cross.svg';
+import * as reload from '../assets/img/reload_white.svg';
 
 enum validateStatus{
   init = 0,
@@ -121,7 +122,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
       const resetHeight = this.reset && this.props.resetButton === resetButtonMap.outline ? this.reset.clientHeight + 1 : 0;
       this.setState({
-        otherHeight:this.ctrlWidth.clientHeight + resetHeight
+        otherHeight:this.ctrlWidth.clientHeight + resetHeight + 1
       });
       // this.otherHeight = this.ctrlWidth.clientHeight + resetHeight;
     }, 200);
@@ -464,8 +465,8 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           }
           {this.props.resetButton === resetButtonMap.inline ?
             (
-              <div className="reset inline" ref={(el) => { this.reset = el; } }>
-                <button className="reset-btn" onClick={() => this.resetCaptcha()}>刷新</button>
+              <div className="reset reset-inline" ref={(el) => { this.reset = el; } }>
+                <img className="reset-btn reset-icon" onClick={() => this.resetCaptcha()} src={reload} />
               </div>
             ) : null
           }
@@ -502,7 +503,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         </div>
         {this.props.resetButton === resetButtonMap.outline ?
           (
-            <div className="reset outline" ref={(el) => { this.reset = el; } }>
+            <div className="reset reset-outline" ref={(el) => { this.reset = el; } }>
               <button className="reset-btn" onClick={() => this.resetCaptcha()}>刷新</button>
             </div>
           ) : null
