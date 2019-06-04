@@ -4,6 +4,7 @@
 [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 
 
+
 ## 1.Usage
 
 ### (1) Installation
@@ -33,7 +34,11 @@ import 'react-slide-captcha/dist/styles.css';
 />
 ```
 
-## 2 API
+## 2 Live Demo
+
+[\[Live Demo\]](https://roxyhuang.github.io/react-slide-captcha.github.io/preview/index.html)
+
+## 3 API
 
 
 | 参数 | 说明 | 类型 | 默认值|
@@ -53,7 +58,7 @@ import 'react-slide-captcha/dist/styles.css';
 | **reset**| component reset type（optional） | string | auto |
 | **onReset**| reset call back（optional） | () => any | - |
 
-### 3 License
+## 4 License
 This entire project are built based on MIT license
 
 MIT

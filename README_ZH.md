@@ -32,7 +32,12 @@ import 'react-slide-captcha/dist/styles.css';
 />
 ```
 
-## 2 参数
+## 2 在线预览
+
+[\[在线预览\]](https://roxyhuang.github.io/react-slide-captcha.github.io/preview/index.html)
+
+
+## 3 参数
 
 
 | 参数 | 说明 | 类型 | 默认值|

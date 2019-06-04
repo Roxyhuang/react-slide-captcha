@@ -4,7 +4,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SlideCaptcha from './components/SlideCaptcha';
 import { getPuzzle, validate }  from '../mock/mock';
+import './normalize.less';
 import './main.less';
+
 
 enum positionStringMap {
   top =  'top',
@@ -93,6 +95,7 @@ class Demo extends React.Component<null, IState> {
     return(
       <div style={{ height: '500px'}}>
         <p className="live-demo-title">react-slide-captcha live demo</p>
+        <p className="live-demo-sub-title">reload - inline</p>
         <SlideCaptcha
           ref={ref => this.vnode = ref}
           displayType="static"
@@ -115,11 +118,81 @@ class Demo extends React.Component<null, IState> {
             },
           }}
         />
-        <div style={{ marginTop: '10px', width: '1000px', height: '30px', margin: '0 auto'}}>
-          <button onClick={this.handleGetPuzzleInfo}>外部刷新</button>
-        </div>
-        <div style={{ marginTop: '10px', width: '1000px', height: '30px', margin: '0 auto' }}>
-          <button onClick={this.componentReload}>组件实例刷新</button>
+        <p className="live-demo-sub-title">reload - outline</p>
+        <SlideCaptcha
+          ref={ref => this.vnode = ref}
+          displayType="static"
+          puzzleUrl={this.state.puzzleUrl}
+          bgUrl={this.state.bgUrl}
+          onRequest={this.resultCallback}
+          onReset={this.handleGetPuzzleInfo}
+          containerClassName="slideCaptchaContainer"
+          tipsStyle={{ fontSize: '14px'}}
+          tipsText="按住滑块，拖住完成下方拼图"
+          style={{ marginTop: '400px', width: '1000px' }}
+          reset="manual"
+          isLoading={this.state.isLoading}
+          resetButton="outline"
+          imagePosition={positionStringMap.top}
+          robotValidate={{
+            offsetY: 5,
+            handler: ():void => {
+              alert('错误，您并非人类');
+            },
+          }}
+        />
+        <p className="live-demo-sub-title">displayType - static</p>
+        <SlideCaptcha
+          ref={ref => this.vnode = ref}
+          displayType="static"
+          puzzleUrl={this.state.puzzleUrl}
+          bgUrl={this.state.bgUrl}
+          onRequest={this.resultCallback}
+          onReset={this.handleGetPuzzleInfo}
+          containerClassName="slideCaptchaContainer"
+          tipsStyle={{ fontSize: '14px'}}
+          tipsText="按住滑块，拖住完成下方拼图"
+          style={{ marginTop: '400px', width: '1000px' }}
+          reset="manual"
+          isLoading={this.state.isLoading}
+          resetButton="inline"
+          imagePosition={positionStringMap.top}
+          robotValidate={{
+            offsetY: 5,
+            handler: ():void => {
+              alert('错误，您并非人类');
+            },
+          }}
+        />
+        <p className="live-demo-sub-title">displayType - hover</p>
+        <SlideCaptcha
+          ref={ref => this.vnode = ref}
+          displayType="hover"
+          puzzleUrl={this.state.puzzleUrl}
+          bgUrl={this.state.bgUrl}
+          onRequest={this.resultCallback}
+          onReset={this.handleGetPuzzleInfo}
+          containerClassName="slideCaptchaContainer"
+          tipsStyle={{ fontSize: '14px'}}
+          tipsText="按住滑块，拖住完成下方拼图"
+          style={{ marginTop: '400px', width: '1000px' }}
+          reset="manual"
+          isLoading={this.state.isLoading}
+          resetButton="outline"
+          imagePosition={positionStringMap.top}
+          robotValidate={{
+            offsetY: 5,
+            handler: ():void => {
+              alert('错误，您并非人类');
+            },
+          }}
+        />
+        <div style={{width: '1000px', margin: '30px auto 0'}}>
+            <p className="live-demo-opt">操作列表</p>
+          <div style={{marginTop: '20px'}}>
+            <button className="live-demo-button" onClick={this.handleGetPuzzleInfo}>外部方法刷新</button>
+            <button className="live-demo-button" onClick={this.componentReload}>组实方法新</button>
+          </div>
         </div>
       </div>
     );

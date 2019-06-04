@@ -32,7 +32,7 @@ const validate = async ({id, distance}) => {
       matched = percentage > 0.28 && percentage < 0.38; // 0.33
       break;
     case 2:
-      matched = percentage > 0.84 && percentage < 0.94; // 0.89
+      matched = percentage > 0.75 && percentage < 0.85; // 0.80
       break;
     case 3:
       matched = percentage > 0.33 && percentage < 0.43; // 0.38
