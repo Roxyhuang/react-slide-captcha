@@ -235,6 +235,19 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       return;
     }
     if(this.state.totalY <  (this.props.robotValidate && this.props.robotValidate.offsetY || 0) ) {
+      if(this.props.robotValidate && this.props.robotValidate.handler && this.state.isMoving) {
+        this.props.robotValidate && this.props.robotValidate.handler ? this.props.robotValidate.handler() : console.log('Please try again');
+        this.setState({
+          offsetX: 0,
+          originX: 0,
+          originY: 0,
+          totalY: 0,
+          isTouchEndSpan: false,
+          isMoving: false,
+          validated: validateStatus.error,
+        });
+        return;
+      }
       this.setState({
         offsetX: 0,
         originX: 0,
@@ -245,7 +258,6 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         validated: validateStatus.error,
       }, () => {
         this.handleMoveOut(e);
-        this.props.robotValidate && this.props.robotValidate.handler ? this.props.robotValidate.handler() : alert('请重试');
       });
       return;
     }
