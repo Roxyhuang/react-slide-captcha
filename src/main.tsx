@@ -4,8 +4,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SlideCaptcha from './components/SlideCaptcha';
 import { getPuzzle, validate }  from '../mock/mock';
-import './main.less';
-
 enum positionStringMap {
   top =  'top',
   bottom = 'bottom',
@@ -100,7 +98,7 @@ class Demo extends React.Component<null, IState> {
           onRequest={this.resultCallback}
           onReset={this.handleGetPuzzleInfo}
           containerClassName="slideCaptchaContainer"
-          tipsStyle={{ fontSize: '14px', color: '#666', background: '#E8E8E8' }}
+          tipsStyle={{ fontSize: '14px'}}
           tipsText="按住滑块，拖住完成下方拼图"
           style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"

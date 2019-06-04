@@ -49,6 +49,7 @@ interface IProps {
   readonly bgUrl: string;
   readonly onRequest: (validateValue: number, validatedSuccess: any, validatedFail?: any, resetCaptcha?: any) => void;
   readonly slidedImage?: any;
+  readonly slidedImageMoving?: any;
   readonly slidedImageSuccess?: any;
   readonly slidedImageError?: any;
   readonly containerClassName?: string;
@@ -89,6 +90,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     isLoading: false,
     slidedImage: ( <img src={arrow} style={{width: '18px'}} />),
     slidedImageSuccess: ( <img src={arrow_white} style={{width: '18px'}} />),
+    slidedImageMoving: ( <img src={arrow_white} style={{width: '18px'}} />),
     slidedImageError: ( <img src={cross} style={{width: '18px'}} />),
     loadingIcon: (
       <img src={loading} className="slideCaptchaLoading" />
@@ -309,17 +311,19 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   };
 
   renderImage = ():any => {
-    const slidedImageValue = this.props.slidedImage || '>';
-    const slidedImageSuccessValue = this.props.slidedImageSuccess || '>';
-    const slidedImageErrorValue = this.props.slidedImageError || 'x';
-    return { slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue };
+    const slidedImageValue = this.props.slidedImage;
+    const slidedImageSuccessValue = this.props.slidedImageSuccess;
+    const slidedImageErrorValue = this.props.slidedImageError;
+    const slidedImageMoving = this.props.slidedImageMoving;
+    return { slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue, slidedImageMoving };
   };
 
-  renderCtrlClassName = (slidedImage, slidedImageSuccess, slidedImageError) => {
+  renderCtrlClassName = (slidedImage, slidedImageSuccess, slidedImageError, slidedImageMoving) => {
     let ctrlClassName;
     let slidedImageValue = slidedImage;
     if (this.state.isMoving) {
       ctrlClassName = 'slider-moving';
+      slidedImageValue = slidedImageMoving;
     } else {
       if (this.state.isTouchEndSpan) {
         if (this.state.validated === validateStatus.success) {
@@ -405,13 +409,14 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   render() {
     const {
-      slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue,
+      slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue, slidedImageMoving
     } = this.renderImage();
 
     const { ctrlClassName, slidedImage } = this.renderCtrlClassName(
       slidedImageValue,
       slidedImageSuccessValue,
       slidedImageErrorValue,
+      slidedImageMoving
     );
 
     let positionObj;
