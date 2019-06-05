@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SlideCaptcha from './components/SlideCaptcha';
 import { getPuzzle, validate }  from '../mock/mock';
+import { inlineCodeHtml, outlineCodeHtml, staticInlineCodeHtml, hoverInlineCodeHtml } from '../mock/prismjs';
 import './normalize.less';
 import './main.less';
 
@@ -118,6 +119,11 @@ class Demo extends React.Component<null, IState> {
             },
           }}
         />
+        <div style={{width: '1000px', margin: '30px auto 0'}}>
+          <pre>
+            <code className="language-jsx" dangerouslySetInnerHTML={{ __html: inlineCodeHtml }} />
+          </pre>
+        </div>
         <p className="live-demo-sub-title">reload - outline</p>
         <SlideCaptcha
           ref={ref => this.vnode = ref}
@@ -127,20 +133,16 @@ class Demo extends React.Component<null, IState> {
           onRequest={this.resultCallback}
           onReset={this.handleGetPuzzleInfo}
           containerClassName="slideCaptchaContainer"
-          tipsStyle={{ fontSize: '14px'}}
-          tipsText="按住滑块，拖住完成下方拼图"
-          style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
           isLoading={this.state.isLoading}
           resetButton="outline"
-          imagePosition={positionStringMap.top}
-          robotValidate={{
-            offsetY: 5,
-            handler: ():void => {
-              alert('错误，您并非人类');
-            },
-          }}
+          imagePosition="top"
         />
+        <div style={{width: '1000px', margin: '30px auto 0'}}>
+          <pre>
+            <code className="language-jsx" dangerouslySetInnerHTML={{ __html: outlineCodeHtml }} />
+          </pre>
+        </div>
         <p className="live-demo-sub-title">displayType - static</p>
         <SlideCaptcha
           ref={ref => this.vnode = ref}
@@ -150,20 +152,16 @@ class Demo extends React.Component<null, IState> {
           onRequest={this.resultCallback}
           onReset={this.handleGetPuzzleInfo}
           containerClassName="slideCaptchaContainer"
-          tipsStyle={{ fontSize: '14px'}}
-          tipsText="按住滑块，拖住完成下方拼图"
-          style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
           isLoading={this.state.isLoading}
           resetButton="inline"
-          imagePosition={positionStringMap.top}
-          robotValidate={{
-            offsetY: 5,
-            handler: ():void => {
-              alert('错误，您并非人类');
-            },
-          }}
+          imagePosition="top"
         />
+        <div style={{width: '1000px', margin: '30px auto 0'}}>
+          <pre>
+            <code className="language-jsx" dangerouslySetInnerHTML={{ __html: staticInlineCodeHtml }} />
+          </pre>
+        </div>
         <p className="live-demo-sub-title">displayType - hover</p>
         <SlideCaptcha
           ref={ref => this.vnode = ref}
@@ -173,21 +171,15 @@ class Demo extends React.Component<null, IState> {
           onRequest={this.resultCallback}
           onReset={this.handleGetPuzzleInfo}
           containerClassName="slideCaptchaContainer"
-          tipsStyle={{ fontSize: '14px'}}
-          tipsText="按住滑块，拖住完成下方拼图"
-          style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
           isLoading={this.state.isLoading}
           resetButton="outline"
           imagePosition={positionStringMap.top}
-          robotValidate={{
-            offsetY: 5,
-            handler: ():void => {
-              alert('错误，您并非人类');
-            },
-          }}
         />
         <div style={{width: '1000px', margin: '30px auto 0'}}>
+          <pre>
+            <code className="language-jsx" dangerouslySetInnerHTML={{ __html: hoverInlineCodeHtml }} />
+          </pre>
             <p className="live-demo-opt">操作列表</p>
           <div style={{marginTop: '20px'}}>
             <button className="live-demo-button" onClick={this.handleGetPuzzleInfo}>外部方法刷新</button>

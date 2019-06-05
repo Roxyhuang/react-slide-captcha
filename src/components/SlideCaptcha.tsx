@@ -64,7 +64,7 @@ interface IProps {
   readonly resetButtonStyle?: object;
   readonly reset?: string;
   readonly onReset?: () => any;
-  readonly imagePosition?: positionStringMap;
+  readonly imagePosition?: string;
   readonly loadingIcon? : React.Component | string;
   readonly isLoading?: boolean;
   readonly displayType: string;

@@ -114,7 +114,7 @@ if (!isProduction && !isPreview) {
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,
-      exclude: [path.resolve('node_modules')],
+      include: !isProduction || isPreview ? [path.resolve('node_modules/prismjs'), path.resolve('src/')] : [path.resolve('src/')],
       use: [
         'style-loader',
         {
