@@ -114,7 +114,7 @@ if (!isProduction && !isPreview) {
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,
-      include: !isProduction || isPreview ? [path.resolve('node_modules/prismjs'), path.resolve('src/')] : [path.resolve('src/')],
+      include: [path.resolve('node_modules/prismjs'), path.resolve('src/')],
       use: [
         'style-loader',
         {
@@ -168,7 +168,7 @@ if (!isProduction && !isPreview) {
     },
     stats: 'minimal'
   }
-// prod config
+// preview config
 } else if(isPreview && isProduction) {
 
   webpackConfig.entry = {
@@ -180,7 +180,7 @@ if (!isProduction && !isPreview) {
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,
-      exclude: [path.resolve('node_modules')],
+      include: [path.resolve('node_modules/prismjs'), path.resolve('src/')],
       use: [
         'style-loader',
         {
@@ -224,7 +224,7 @@ if (!isProduction && !isPreview) {
       template: '../index.html',
     }),
   );
-
+// prodction config
 } else if(!isPreview && isProduction) {
   webpackConfig.entry = {
     slideCaptcha: './index.tsx'
@@ -233,6 +233,7 @@ if (!isProduction && !isPreview) {
   webpackConfig.module.rules.push(
     {
       test: /\.css|less$/,
+      exclude: [path.resolve('node_modules')],
       use: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
