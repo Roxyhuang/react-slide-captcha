@@ -60,8 +60,7 @@ interface IProps {
   readonly tipsText?: string;
   readonly robotValidate?: robotValidateConfig;
   readonly resetButton?: string;
-  readonly resetButtonClass?: string;
-  readonly resetButtonStyle?: object;
+  readonly resetButtonElement?: React.Component;
   readonly reset?: string;
   readonly onReset?: () => any;
   readonly imagePosition?: string;
@@ -422,6 +421,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
     let positionObj;
     let displayType;
+    let buttonElement;
 
     if(this.props.imagePosition === positionStringMap.top) {
       positionObj = { bottom: `${this.state.otherHeight}px` }
@@ -435,6 +435,17 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       displayType = { display: imgDisplayStatus.show };
     }
 
+    if(this.props.resetButtonElement) {
+      buttonElement = this.props.resetButtonElement;
+    } else {
+      if(this.props.resetButton === resetButtonMap.outline) {
+        buttonElement = <button className="reset-btn" onClick={() => this.resetCaptcha()} />;
+      } else if(this.props.resetButton === resetButtonMap.inline) {
+        buttonElement = <img className="reset-btn" src={reload} onClick={() => this.resetCaptcha()} />
+      } else {
+        buttonElement =  null;
+      }
+    }
 
     return(
       <div
@@ -466,7 +477,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           {this.props.resetButton === resetButtonMap.inline ?
             (
               <div className="reset reset-inline" ref={(el) => { this.reset = el; } }>
-                <img className="reset-btn" onClick={() => this.resetCaptcha()} src={reload} />
+                {buttonElement}
               </div>
             ) : null
           }
@@ -504,7 +515,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         {this.props.resetButton === resetButtonMap.outline ?
           (
             <div className="reset reset-outline" ref={(el) => { this.reset = el; } }>
-              <button className="reset-btn" onClick={() => this.resetCaptcha()} />
+              {buttonElement}
             </div>
           ) : null
         }
