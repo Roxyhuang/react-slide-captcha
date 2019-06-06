@@ -66,7 +66,7 @@ interface IProps {
   readonly imagePosition?: string;
   readonly loadingIcon? : JSX.Element  | string;
   readonly isLoading?: boolean;
-  readonly displayType: string;
+  readonly displayType?: string;
 }
 
 interface IState {

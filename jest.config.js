@@ -9,11 +9,13 @@ module.exports = {
     './__tests__/setup.ts'
   ],
   moduleNameMapper: {
-    "\\.(css|less)$": "identity-obj-proxy"
+    "\\.(css|less)$": "identity-obj-proxy",
+    "\\.(png|svg)$": "<rootDir>/src/"
   },
   testPathIgnorePatterns: [
     '/node_modules/',
-    'dist',
+    '/dist/',
+    '/preview/',
     './__tests__/setup.ts',
   ],
   transform: {

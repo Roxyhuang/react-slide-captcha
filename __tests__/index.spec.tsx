@@ -12,5 +12,5 @@ test('renders correctly', () => {
     tipsText="请向右滑动滑块填充拼图"
     style={{width: '500px'}}
   />);
-  expect(renderer.text()).toEqual('>请向右滑动滑块填充拼图');
+  expect(renderer.text()).toEqual('请向右滑动滑块填充拼图');
 });
