@@ -464,6 +464,10 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       }
     }
 
+    if(this.state.validated !== validateStatus.init) {
+      tipsText = null;
+    }
+
     return(
       <div
         className={
