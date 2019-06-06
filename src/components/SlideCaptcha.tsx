@@ -60,11 +60,11 @@ interface IProps {
   readonly tipsText?: string;
   readonly robotValidate?: robotValidateConfig;
   readonly resetButton?: string;
-  readonly resetButtonElement?: React.Component;
+  readonly resetButtonElement?: JSX.Element | string;
   readonly reset?: string;
   readonly onReset?: () => any;
   readonly imagePosition?: string;
-  readonly loadingIcon? : React.Component | string;
+  readonly loadingIcon? : JSX.Element  | string;
   readonly isLoading?: boolean;
   readonly displayType: string;
 }
@@ -236,7 +236,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     if(this.state.isTouchEndSpan || this.props.isLoading) {
       return;
     }
-    if(this.state.totalY <  (this.props.robotValidate && this.props.robotValidate.offsetY || 0) ) {
+    if(this.state.totalY <  ((this.props.robotValidate && this.props.robotValidate.offsetY )|| 0) ) {
       if(this.props.robotValidate && this.props.robotValidate.handler && this.state.isMoving) {
         this.props.robotValidate && this.props.robotValidate.handler ? this.props.robotValidate.handler() : console.log('Please try again');
         this.setState({
@@ -274,7 +274,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         this.props.onRequest(validateValue, this.validatedSuccess, this.validatedFail, this.resetCaptcha);
       }
     } else {
-        this.resetCaptcha();
+        // this.resetCaptcha();
     }
   };
 
@@ -439,9 +439,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       buttonElement = this.props.resetButtonElement;
     } else {
       if(this.props.resetButton === resetButtonMap.outline) {
-        buttonElement = <button className="reset-btn" onClick={() => this.resetCaptcha()} />;
+        buttonElement = <button className="reset-btn" />;
       } else if(this.props.resetButton === resetButtonMap.inline) {
-        buttonElement = <img className="reset-btn" src={reload} onClick={() => this.resetCaptcha()} />
+        buttonElement = <img className="reset-btn" src={reload} />
       } else {
         buttonElement =  null;
       }
@@ -477,7 +477,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           {this.props.resetButton === resetButtonMap.inline ?
             (
               <div className="reset reset-inline" ref={(el) => { this.reset = el; } }>
-                {buttonElement}
+                <div className="rest-container" onClick={() => this.resetCaptcha()}>
+                  {buttonElement}
+                </div>
               </div>
             ) : null
           }
@@ -515,7 +517,9 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         {this.props.resetButton === resetButtonMap.outline ?
           (
             <div className="reset reset-outline" ref={(el) => { this.reset = el; } }>
-              {buttonElement}
+              <div className="rest-container" onClick={() => this.resetCaptcha()}>
+                {buttonElement}
+              </div>
             </div>
           ) : null
         }

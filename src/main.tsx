@@ -94,7 +94,7 @@ class Demo extends React.Component<null, IState> {
 
   render() {
     return(
-      <div style={{ height: '500px'}}>
+      <div>
         <p className="live-demo-title">react-slide-captcha live demo</p>
         <p className="live-demo-sub-title">reload - inline</p>
         <SlideCaptcha
