@@ -78,7 +78,8 @@ interface IState {
   isMoving: boolean;
   isTouchEndSpan: boolean;
   imgDisplayStatus: imgDisplayStatus;
-  otherHeight: number
+  otherHeight: number;
+  isSliderHover: boolean;
 }
 
 class SlideCaptcha extends React.Component<IProps, IState>{
@@ -108,6 +109,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     isTouchEndSpan: false,
     imgDisplayStatus: imgDisplayStatus.hidden,
     otherHeight: 0,
+    isSliderHover: false
   };
   constructor(props: IProps) {
     super(props);
@@ -301,6 +303,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           isMoving: false,
           validated: validateStatus.init,
           imgDisplayStatus: imgDisplayStatus.hidden,
+          isSliderHover: false,
         }, () => {
           if(this.props.onReset && isReset) {
             this.props.onReset();
@@ -337,7 +340,13 @@ class SlideCaptcha extends React.Component<IProps, IState>{
           ctrlClassName = 'slider-moving';
         }
       } else {
-        ctrlClassName = '';
+        if(this.state.validated === validateStatus.init && this.state.isSliderHover) {
+          ctrlClassName = 'slider-moving';
+          slidedImageValue = slidedImageMoving;
+        } else {
+          ctrlClassName = '';
+        }
+
       }
     }
     return { ctrlClassName, slidedImage: slidedImageValue };
@@ -379,6 +388,11 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handleMoveOut = (e) => {
     e.preventDefault();
+    if(this.state.validated === validateStatus.init){
+      this.setState({
+        isSliderHover: false,
+      });
+    }
     if(this.state.imgDisplayStatus === imgDisplayStatus.show
       && this.state.isMoving === false
       && this.state.validated === validateStatus.init
@@ -391,6 +405,12 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handleMoveOver = (e) => {
     e.preventDefault();
+    if(this.state.validated === validateStatus.init){
+      this.setState({
+        isSliderHover: true,
+      });
+    }
+
     if(this.state.imgDisplayStatus === imgDisplayStatus.hidden){
       this.setState({
         imgDisplayStatus: imgDisplayStatus.show,
