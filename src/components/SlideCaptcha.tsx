@@ -87,6 +87,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     reset: resetTypeMap.auto,
     resetButton: resetButtonMap.none,
     position: positionStringMap.bottom,
+    tipsText: '向右滑动滑块填充拼图',
     isLoading: false,
     slidedImage: ( <img src={arrow} style={{width: '18px'}} />),
     slidedImageSuccess: ( <img src={arrow_white} style={{width: '18px'}} />),
@@ -422,6 +423,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     let positionObj;
     let displayType;
     let buttonElement;
+    let tipsText;
 
     if(this.props.imagePosition === positionStringMap.top) {
       positionObj = { bottom: `${this.state.otherHeight}px` }
@@ -444,6 +446,21 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         buttonElement = <img className="reset-btn" src={reload} />
       } else {
         buttonElement =  null;
+      }
+    }
+
+    if(this.state.isMoving){
+      if(this.props.isLoading){
+        tipsText = '加载中...';
+      } else {
+        tipsText = null;
+      }
+
+    } else {
+      if(this.props.isLoading){
+        tipsText = '加载中...';
+      } else {
+        tipsText = this.props.tipsText;
       }
     }
 
@@ -509,7 +526,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
               style={this.props.tipsStyle || {} }
             >
               <span>
-                {this.props.tipsText || '向右滑动滑块填充拼图'}
+                {tipsText}
               </span>
             </div>
           </div>
