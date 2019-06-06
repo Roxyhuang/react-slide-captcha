@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import {  shallow } from 'enzyme';
 import SlideCaptcha from '../../src/index';
 
 test('Test DefaultProps.', async () => {
