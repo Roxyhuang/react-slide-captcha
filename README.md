@@ -4,8 +4,6 @@
 [![Build Status](https://travis-ci.org/boennemann/badges.svg?branch=master)](https://travis-ci.org/boennemann/badges)
 [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 
-
-
 ## 1.Usage
 
 ### (1) Installation
@@ -58,6 +56,7 @@ import 'react-slide-captcha/dist/styles.css';
 | **robotValidate**| robot validate config（optional） | object: {  offsetY: number, handler: () => any,} | - |
 | **reset**| component reset type（optional） | string | auto |
 | **onReset**| reset call back（optional） | () => any | - |
+
 
 ## 4 License
 This entire project are built based on MIT license

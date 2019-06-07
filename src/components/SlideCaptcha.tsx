@@ -32,7 +32,7 @@ enum positionStringMap {
 enum resetButtonMap {
   none = 'none',
   inline = 'inline',
-  outline = 'outline'
+  outline = 'outline',
 }
 
 enum displayTypeMap {
@@ -48,7 +48,11 @@ type robotValidateConfig =  {
 interface IProps {
   readonly puzzleUrl: string;
   readonly bgUrl: string;
-  readonly onRequest: (validateValue: number, validatedSuccess: any, validatedFail?: any, resetCaptcha?: any) => void;
+  readonly onRequest: (validateValue: number,
+                       validatedSuccess: any,
+                       validatedFail?: any,
+                       resetCaptcha?: any,
+                      ) => void;
   readonly slidedImage?: any;
   readonly slidedImageMoving?: any;
   readonly slidedImageSuccess?: any;
@@ -90,13 +94,13 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     position: positionStringMap.bottom,
     tipsText: '向右滑动滑块填充拼图',
     isLoading: false,
-    slidedImage: ( <img src={arrow} style={{width: '18px'}} />),
-    slidedImageSuccess: ( <img src={arrow_white} style={{width: '18px'}} />),
-    slidedImageMoving: ( <img src={arrow_white} style={{width: '18px'}} />),
-    slidedImageError: ( <img src={cross} style={{width: '18px'}} />),
+    slidedImage: (<img src={arrow} style={{ width: '18px' }} />),
+    slidedImageSuccess: (<img src={arrow_white} style={{ width: '18px' }} />),
+    slidedImageMoving: (<img src={arrow_white} style={{ width: '18px' }} />),
+    slidedImageError: (<img src={cross} style={{ width: '18px' }} />),
     loadingIcon: (
       <img src={loading} className="slideCaptchaLoading" />
-    )
+    ),
   };
 
   state: IState = {
@@ -109,7 +113,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     isTouchEndSpan: false,
     imgDisplayStatus: imgDisplayStatus.hidden,
     otherHeight: 0,
-    isSliderHover: false
+    isSliderHover: false,
   };
   constructor(props: IProps) {
     super(props);
@@ -122,18 +126,19 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
     this.timeout = setTimeout(() => {
       this.maxSlidedWidth = this.ctrlWidth.clientWidth - this.sliderWidth.clientWidth;
-      const resetHeight = this.reset && this.props.resetButton === resetButtonMap.outline ? this.reset.clientHeight + 1 : 0;
+      const resetHeight = this.reset && this.props.resetButton === resetButtonMap.outline
+                          ? this.reset.clientHeight + 1
+                          : 0;
       this.setState({
-        otherHeight:this.ctrlWidth.clientHeight + resetHeight + 1
+        otherHeight:this.ctrlWidth.clientHeight + resetHeight + 1,
       });
-      // this.otherHeight = this.ctrlWidth.clientHeight + resetHeight;
     }, 200);
   }
 
   componentWillReceiveProps(nextProps: Readonly<IProps>): void {
-      if(nextProps.reset === resetTypeMap.manual){
-        this.resetCaptcha(false);
-      }
+    if(nextProps.reset === resetTypeMap.manual) {
+      this.resetCaptcha(false);
+    }
   }
 
   componentWillUnmount() {
@@ -156,7 +161,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     if (e.type.indexOf('touch') > -1) {
       return e.touches[0].clientX;
     }
-  };
+  }
 
   private getClientY = (e): number => {
     if (e.type.indexOf('mouse') > -1) {
@@ -165,7 +170,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     if (e.type.indexOf('touch') > -1) {
       return e.touches[0].clientY;
     }
-  };
+  }
 
   private move = (e): void => {
     const clientX = this.getClientX(e);
@@ -202,7 +207,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
   public validatedFail = (callback: () => any): any => {
     this.setState({
       validated: validateStatus.error,
-    }, ()=> {
+    }, () => {
       callback();
       if(this.props.reset === resetTypeMap.auto) {
         setTimeout(() => {
@@ -239,9 +244,11 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     if(this.state.isTouchEndSpan || this.props.isLoading) {
       return;
     }
-    if(this.state.totalY <  ((this.props.robotValidate && this.props.robotValidate.offsetY )|| 0) ) {
+    if(this.state.totalY <  ((this.props.robotValidate && this.props.robotValidate.offsetY) || 0)) {
       if(this.props.robotValidate && this.props.robotValidate.handler && this.state.isMoving) {
-        this.props.robotValidate && this.props.robotValidate.handler ? this.props.robotValidate.handler() : console.log('Please try again');
+        this.props.robotValidate && this.props.robotValidate.handler
+          ? this.props.robotValidate.handler()
+          : console.log('Please try again');
         this.setState({
           offsetX: 0,
           originX: 0,
@@ -274,7 +281,11 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         isMoving: false,
       });
       if (this.props.onRequest) {
-        this.props.onRequest(validateValue, this.validatedSuccess, this.validatedFail, this.resetCaptcha);
+        this.props.onRequest(validateValue,
+                            this.validatedSuccess,
+                            this.validatedFail,
+                            this.resetCaptcha,
+                            );
       }
     } else {
         // this.resetCaptcha();
@@ -289,7 +300,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       const currentProgress = percent < speed ? 0 : percent - speed;
       if (percent > targetPercent) {
         this.setState({
-          offsetX: currentProgress
+          offsetX: currentProgress,
         }, () => {
           window.requestAnimationFrame(animate);
         });
@@ -388,7 +399,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handleMoveOut = (e) => {
     e.preventDefault();
-    if(this.state.validated === validateStatus.init){
+    if(this.state.validated === validateStatus.init) {
       this.setState({
         isSliderHover: false,
       });
@@ -396,7 +407,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     if(this.state.imgDisplayStatus === imgDisplayStatus.show
       && this.state.isMoving === false
       && this.state.validated === validateStatus.init
-    ){
+    ) {
       this.setState({
         imgDisplayStatus: imgDisplayStatus.hidden,
       });
@@ -405,13 +416,13 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   handleMoveOver = (e) => {
     e.preventDefault();
-    if(this.state.validated === validateStatus.init){
+    if(this.state.validated === validateStatus.init) {
       this.setState({
         isSliderHover: true,
       });
     }
 
-    if(this.state.imgDisplayStatus === imgDisplayStatus.hidden){
+    if(this.state.imgDisplayStatus === imgDisplayStatus.hidden) {
       this.setState({
         imgDisplayStatus: imgDisplayStatus.show,
       });
@@ -430,14 +441,14 @@ class SlideCaptcha extends React.Component<IProps, IState>{
 
   render() {
     const {
-      slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue, slidedImageMoving
+      slidedImageValue, slidedImageSuccessValue, slidedImageErrorValue, slidedImageMoving,
     } = this.renderImage();
 
     const { ctrlClassName, slidedImage } = this.renderCtrlClassName(
       slidedImageValue,
       slidedImageSuccessValue,
       slidedImageErrorValue,
-      slidedImageMoving
+      slidedImageMoving,
     );
 
     let positionObj;
@@ -469,15 +480,15 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       }
     }
 
-    if(this.state.isMoving){
-      if(this.props.isLoading){
+    if(this.state.isMoving) {
+      if(this.props.isLoading) {
         tipsText = '加载中...';
       } else {
         tipsText = null;
       }
 
     } else {
-      if(this.props.isLoading){
+      if(this.props.isLoading) {
         tipsText = '加载中...';
       } else {
         tipsText = this.props.tipsText;
@@ -498,7 +509,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         onMouseMove={this.handlerMouseMove}
         onMouseUp={this.handlerMouseUp}
       >
-        <div className="panel" style={{ ...positionObj, ...displayType}}>
+        <div className="panel" style={{ ...positionObj, ...displayType }}>
           {
             this.props.isLoading ?
               <div className="loadingContainer">
