@@ -93,7 +93,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     displayType: displayTypeMap.hover,
     reset: resetTypeMap.auto,
     resetButton: resetButtonMap.none,
-    position: positionStringMap.bottom,
+    imagePosition: positionStringMap.bottom,
     tipsText: '向右滑动滑块填充拼图',
     isLoading: false,
     slidedImage: (<img src={arrow} style={{ width: '18px' }} />),

@@ -43,7 +43,7 @@ import 'react-slide-captcha/dist/styles.css';
 
 ![](https://raw.githubusercontent.com/Roxyhuang/react-slide-captcha/master/src/assets/img/qrcode.png)
 
-## 3 参数
+## 3 参数 （2.x）
 
 
 | 参数 | 说明 | 类型 | 默认值|
@@ -51,9 +51,10 @@ import 'react-slide-captcha/dist/styles.css';
 | **puzzleUrl** | 拼图图片地址（必填） | string | - |
 | **bgUrl** | 背景图片地址（必填） | string | - |
 | **onRequest** | 回调（必填）  | (validateValue: number, validatedSuccess: any, validatedFail?: any) => void| - |
-| **slidedImage** | 滑块图片（可选）  | string | '>' |
-| **slidedImageSuccess** | 验证成功滑块图片（可选） | string |  '>'
-| **slidedImageError** | 验证失败滑块图片（可选） | string | 'X'
+| **slidedImage** | 滑块元素（可选）  | JSX.Element |  '默认滑块元素' 
+| **slidedImageMoving** | 移动中滑块元素（可选）  | JSX.Element | '默认移动中滑块元素' |
+| **slidedImageSuccess** | 验证成功滑块元素（可选） | JSX.Element | '默认成功滑块元素' 
+| **slidedImageError** | 验证失败滑块元素（可选） | JSX.Element | '默认失败滑块元素' 
 | **containerClassName** | 容器样式类名（可选） | any | -|
 | **style**| 容器样式（可选） | object | - |
 | **tipsText**| 提示文字（可选） | string | - |
@@ -61,5 +62,19 @@ import 'react-slide-captcha/dist/styles.css';
 | **tipsStyle**| 提示文字样式（可选） | object | - |
 | **robotValidate**| 机器人校验配置（可选） | object: {  offsetY: number, handler: () => any,} | - |
 | **reset**| 组件刷新方式（可选） | string | auto |
+| **resetButton**| reset组件显示类型 **none/inline/outline**（可选） | JSX.Element | 'auto' |
+| **resetButtonElement**| reset 组件元素（可选） | string | auto |
 | **onReset**| 组件刷新回调（可选） | () => any | - |
+| **imagePosition**| 图片显示位置 **top/bottom** （可选） | string | 'bottom' |
+| **isLoading**| 加载状态（可选） | boolean | false |
+| **loadingIcon**| 加载图标（可选） | JSX.Element | defalut loading svg |
+| **displayType**| 显示类型 **hover/static**（可选） | string | 'hover' |
+| **hoverPanelStyle**| 触发式组件的操作部分样式（可选） | object | - |
+| **hoverPanelClassName**| 触发式组件的操作部分名（可选） | string| - |
+
+## 4 License
+
+整个项目是基于 MIT license
+
+MIT
 
