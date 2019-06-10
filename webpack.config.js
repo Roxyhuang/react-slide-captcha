@@ -109,7 +109,7 @@ webpackConfig = {
 // dev config
 if (!isProduction && !isPreview) {
   webpackConfig.entry = {
-    slideCaptcha: './main.tsx'
+    slideCaptcha: './demo/index.tsx'
   };
   webpackConfig.module.rules.push(
     {
@@ -172,7 +172,7 @@ if (!isProduction && !isPreview) {
 } else if(isPreview && isProduction) {
 
   webpackConfig.entry = {
-    slideCaptcha: './main.tsx'
+    slideCaptcha: './demo/index.tsx'
   };
 
   webpackConfig.output.publicPath = './';

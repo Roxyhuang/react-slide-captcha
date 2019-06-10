@@ -1,12 +1,11 @@
-/// <reference path='../types/global.d.ts'/>
+/// <reference path='../../../types/global.d.ts'/>
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import SlideCaptcha from './components/SlideCaptcha';
-import { getPuzzle, validate }  from '../mock/mock';
-import { inlineCodeHtml, outlineCodeHtml, staticInlineCodeHtml, hoverInlineCodeHtml } from '../mock/prismjs';
-import './normalize.less';
-import './main.less';
+import SlideCaptcha from '../../components/Jigsaw/index';
+import { getPuzzle, validate }  from '../../../mock/mock';
+import { inlineCodeHtml, outlineCodeHtml, staticInlineCodeHtml, hoverInlineCodeHtml } from '../../../mock/prismjs';
+import '../../normalize.less';
+import './index.less';
 
 
 enum positionStringMap {
@@ -94,7 +93,7 @@ class Demo extends React.Component<null, IState> {
 
   render() {
     return(
-      <div>
+      <div id="desktop" >
         <p className="live-demo-title">react-slide-captcha live demo</p>
         <p className="live-demo-sub-title">reload - inline</p>
         <SlideCaptcha
@@ -191,7 +190,4 @@ class Demo extends React.Component<null, IState> {
   }
 }
 
-ReactDOM.render(
-  <Demo />,
-  document.getElementById('root'),
-);
+export default Demo;

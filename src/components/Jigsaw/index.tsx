@@ -1,12 +1,12 @@
-/// <reference path='../../types/global.d.ts'/>
+/// <reference path='../../../types/global.d.ts'/>
 
 import * as React from 'react';
 import './styles/index.less';
-import * as loading from '../assets/img/loading.svg';
-import * as arrow from '../assets/img/arrow.svg';
-import * as arrow_white from '../assets/img/arrow_white.svg';
-import * as cross from '../assets/img/cross.svg';
-import * as reload from '../assets/img/reload_white.svg';
+import * as loading from '../../assets/img/loading.svg';
+import * as arrow from '../../assets/img/arrow.svg';
+import * as arrow_white from '../../assets/img/arrow_white.svg';
+import * as cross from '../../assets/img/cross.svg';
+import * as reload from '../../assets/img/reload_white.svg';
 
 enum validateStatus{
   init = 0,

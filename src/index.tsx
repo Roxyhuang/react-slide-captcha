@@ -1,3 +1,3 @@
-import SlideCaptcha from './components/SlideCaptcha';
+import SlideCaptcha from './components/Jigsaw/index';
 
 export default SlideCaptcha;
