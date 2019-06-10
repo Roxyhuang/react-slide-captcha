@@ -103,7 +103,6 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     loadingIcon: (
       <img src={loading} className="slideCaptchaLoading" />
     ),
-    hoverPanelClassName: 'hoverPanelDefault'
   };
 
   state: IState = {

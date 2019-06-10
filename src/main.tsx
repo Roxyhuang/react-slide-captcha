@@ -118,7 +118,7 @@ class Demo extends React.Component<null, IState> {
             },
           }}
         />
-        <div style={{width: '1000px', margin: '30px auto 0'}}>
+        <div className="demoLayer">
           <pre>
             <code className="language-jsx" dangerouslySetInnerHTML={{ __html: inlineCodeHtml }} />
           </pre>
@@ -137,7 +137,7 @@ class Demo extends React.Component<null, IState> {
           resetButton="outline"
           imagePosition="top"
         />
-        <div style={{width: '1000px', margin: '30px auto 0'}}>
+        <div className="demoLayer">
           <pre>
             <code className="language-jsx" dangerouslySetInnerHTML={{ __html: outlineCodeHtml }} />
           </pre>
@@ -156,7 +156,7 @@ class Demo extends React.Component<null, IState> {
           resetButton="inline"
           imagePosition="top"
         />
-        <div style={{width: '1000px', margin: '30px auto 0'}}>
+        <div className="demoLayer">
           <pre>
             <code className="language-jsx" dangerouslySetInnerHTML={{ __html: staticInlineCodeHtml }} />
           </pre>
@@ -171,11 +171,12 @@ class Demo extends React.Component<null, IState> {
           onReset={this.handleGetPuzzleInfo}
           containerClassName="test"
           reset="manual"
+          hoverPanelClassName="hoverPanelDefault"
           isLoading={this.state.isLoading}
           resetButton="outline"
           imagePosition={positionStringMap.top}
         />
-        <div style={{width: '1000px', margin: '30px auto 0'}}>
+        <div className="demoLayer">
           <pre>
             <code className="language-jsx" dangerouslySetInnerHTML={{ __html: hoverInlineCodeHtml }} />
           </pre>
