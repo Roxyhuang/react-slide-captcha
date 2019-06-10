@@ -3,6 +3,7 @@
 import * as React from 'react';
 import SlideCaptcha from '../../components/Jigsaw/index';
 import { getPuzzle, validate }  from '../../../mock/mock';
+import * as qrcode from '../../assets/img/qrcode.png';
 import { inlineCodeHtml, outlineCodeHtml, staticInlineCodeHtml, hoverInlineCodeHtml } from '../../../mock/prismjs';
 import '../../normalize.less';
 import './index.less';
@@ -179,11 +180,17 @@ class Demo extends React.Component<null, IState> {
           <pre>
             <code className="language-jsx" dangerouslySetInnerHTML={{ __html: hoverInlineCodeHtml }} />
           </pre>
-            <p className="live-demo-opt">操作列表</p>
-          <div style={{marginTop: '20px'}}>
-            <button className="live-demo-button" onClick={this.handleGetPuzzleInfo}>外部方法刷新</button>
-            <button className="live-demo-button" onClick={this.componentReload}>组实方法新</button>
+          <p className="live-demo-opt" style={{marginTop: '32px'}}>Function - List</p>
+          <div style={{marginTop: '20px auto', textAlign: 'center'}}>
+            <div style={{margin: '32px auto', width: '240px'}} className="clearfix">
+              <button className="live-demo-button" onClick={this.handleGetPuzzleInfo}>外部方法刷新</button>
+              <button className="live-demo-button" onClick={this.componentReload}>组实方法新</button>
+            </div>
           </div>
+        </div>
+        <div className="demoLayer">
+          <p className="live-demo-opt">Mobile Live Demo</p>
+          <img src={qrcode} style={{margin:'42px auto'}} />
         </div>
       </div>
     );

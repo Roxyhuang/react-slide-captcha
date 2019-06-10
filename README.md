@@ -35,7 +35,13 @@ import 'react-slide-captcha/dist/styles.css';
 
 ## 2 Live Demo
 
-[\[Live Demo\]](https://roxyhuang.github.io/react-slide-captcha.github.io/preview/index.html)
+### (1)Desktop Demo
+
+[\[Desktop Demo\]](https://roxyhuang.github.io/react-slide-captcha.github.io/preview/index.html)
+
+### (2)Mobile Demo
+
+
 
 ## 3 API
 

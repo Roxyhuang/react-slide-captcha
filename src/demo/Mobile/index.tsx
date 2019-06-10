@@ -175,12 +175,12 @@ class Demo extends React.Component<null, IState> {
           resetButton="outline"
           imagePosition={positionStringMap.top}
         />
-        <div className="demoLayer">
+        <div className="demoLayer" style={{marginBottom: '24px'}}>
           <pre>
             <code className="language-jsx" dangerouslySetInnerHTML={{ __html: hoverInlineCodeHtml }} />
           </pre>
-            <p className="live-demo-opt">操作列表</p>
-          <div style={{marginTop: '20px'}}>
+            <p className="live-demo-opt" style={{margin: '30px auto'}}>Mobile Live Demo</p>
+          <div style={{marginTop: '20px auto', textAlign: 'center'}} className="clearfix">
             <button className="live-demo-button" onClick={this.handleGetPuzzleInfo}>外部方法刷新</button>
             <button className="live-demo-button" onClick={this.componentReload}>组实方法新</button>
           </div>
