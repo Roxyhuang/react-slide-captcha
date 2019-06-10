@@ -71,6 +71,8 @@ interface IProps {
   readonly loadingIcon? : JSX.Element  | string;
   readonly isLoading?: boolean;
   readonly displayType?: string;
+  readonly hoverPanelStyle?: object;
+  readonly hoverPanelClassName?: string;
 }
 
 interface IState {
@@ -101,6 +103,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     loadingIcon: (
       <img src={loading} className="slideCaptchaLoading" />
     ),
+    hoverPanelClassName: 'hoverPanelDefault'
   };
 
   state: IState = {
@@ -455,15 +458,17 @@ class SlideCaptcha extends React.Component<IProps, IState>{
     let displayType;
     let buttonElement;
     let tipsText;
-
-    if(this.props.imagePosition === positionStringMap.top) {
-      positionObj = { bottom: `${this.state.otherHeight}px` }
-    } else {
-      positionObj = { top: `${this.state.otherHeight}px` }
-    }
+    let hoverPanelClassName;
+    const  hoverPanelStyle = this.props.hoverPanelStyle;
 
     if(this.props.displayType === displayTypeMap.hover) {
       displayType = { display: this.state.imgDisplayStatus };
+      hoverPanelClassName = this.props.hoverPanelClassName || null;
+      if(this.props.imagePosition === positionStringMap.top) {
+        positionObj = { position: 'absolute', bottom: `${this.state.otherHeight}px`, ...hoverPanelStyle }
+      } else {
+        positionObj = { position: 'absolute', top: `${this.state.otherHeight}px`, ...hoverPanelStyle }
+      }
     } else {
       displayType = { display: imgDisplayStatus.show };
     }
@@ -499,36 +504,30 @@ class SlideCaptcha extends React.Component<IProps, IState>{
       tipsText = null;
     }
 
-    return(
-      <div
-        className={
-          `slideCaptchaContainer ${this.props.containerClassName ?
-            this.props.containerClassName : ''}`
-        }
-        style={this.props.style || {} }
-        onMouseMove={this.handlerMouseMove}
-        onMouseUp={this.handlerMouseUp}
-      >
-        <div className="panel" style={{ ...positionObj, ...displayType }}>
+    const renderPanel = () => {
+     return (
+        <div className={`${hoverPanelClassName ? `panel ${hoverPanelClassName }`: 'panel'}`} style={{...positionObj, ...displayType}}>
           {
             this.props.isLoading ?
               <div className="loadingContainer">
                 {this.props.loadingIcon}
               </div>
               : (
-              <div className="bgContainer">
-                <img src={this.props.bgUrl} className="bgImg" />
-                <img
-                  src={this.props.puzzleUrl}
-                  className="puzzleImg"
-                  style={{ left: `${this.state.offsetX}px` }}
-                />
-              </div>
-            )
+                <div className="bgContainer">
+                  <img src={this.props.bgUrl} className="bgImg"/>
+                  <img
+                    src={this.props.puzzleUrl}
+                    className="puzzleImg"
+                    style={{left: `${this.state.offsetX}px`}}
+                  />
+                </div>
+              )
           }
           {this.props.resetButton === resetButtonMap.inline ?
             (
-              <div className="reset reset-inline" ref={(el) => { this.reset = el; } }>
+              <div className="reset reset-inline" ref={(el) => {
+                this.reset = el;
+              }}>
                 <div className="rest-container" onClick={() => this.resetCaptcha()}>
                   {buttonElement}
                 </div>
@@ -536,6 +535,20 @@ class SlideCaptcha extends React.Component<IProps, IState>{
             ) : null
           }
         </div>
+      )
+    };
+
+    return(
+      <div
+        className={
+          `slideCaptchaContainer ${this.props.containerClassName ?
+            this.props.containerClassName : ''}`
+        }
+        style={this.props.style}
+        onMouseMove={this.handlerMouseMove}
+        onMouseUp={this.handlerMouseUp}
+      >
+        { renderPanel() }
         <div>
           <div
             className={`control ${ctrlClassName ? ctrlClassName : ''}`}

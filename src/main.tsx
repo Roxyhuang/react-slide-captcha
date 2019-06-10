@@ -104,10 +104,9 @@ class Demo extends React.Component<null, IState> {
           bgUrl={this.state.bgUrl}
           onRequest={this.resultCallback}
           onReset={this.handleGetPuzzleInfo}
-          containerClassName="slideCaptchaContainer"
+          containerClassName="test"
           tipsStyle={{ fontSize: '14px'}}
           tipsText="按住滑块，拖住完成下方拼图"
-          style={{ marginTop: '400px', width: '1000px' }}
           reset="manual"
           isLoading={this.state.isLoading}
           resetButton="inline"
@@ -132,7 +131,7 @@ class Demo extends React.Component<null, IState> {
           bgUrl={this.state.bgUrl}
           onRequest={this.resultCallback}
           onReset={this.handleGetPuzzleInfo}
-          containerClassName="slideCaptchaContainer"
+          containerClassName="test"
           reset="manual"
           isLoading={this.state.isLoading}
           resetButton="outline"
@@ -151,7 +150,7 @@ class Demo extends React.Component<null, IState> {
           bgUrl={this.state.bgUrl}
           onRequest={this.resultCallback}
           onReset={this.handleGetPuzzleInfo}
-          containerClassName="slideCaptchaContainer"
+          containerClassName="test"
           reset="manual"
           isLoading={this.state.isLoading}
           resetButton="inline"
@@ -170,7 +169,7 @@ class Demo extends React.Component<null, IState> {
           bgUrl={this.state.bgUrl}
           onRequest={this.resultCallback}
           onReset={this.handleGetPuzzleInfo}
-          containerClassName="slideCaptchaContainer"
+          containerClassName="test"
           reset="manual"
           isLoading={this.state.isLoading}
           resetButton="outline"

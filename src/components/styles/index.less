@@ -1,17 +1,18 @@
 .slideCaptchaContainer {
-  position: relative;
   margin: 0 auto;
+  position: relative;
 
   .panel {
-    position: absolute;
+    position: relative;
     margin: 0 auto;
-    bottom: 40px;
     left: 0;
     width: 100%;
     z-index: 1000;
+    height: 100%;
 
     .bgContainer {
       position: relative;
+      height: 100%;
 
       .puzzleImg {
         display: block;
@@ -26,6 +27,7 @@
         display: block;
         width: 100%;
         border-radius: 2px;
+        height: 100%;
       }
     }
 
@@ -33,6 +35,7 @@
       position: relative;
       min-height: 300px;
       background-color: #f7f9fa;
+      height: 100%;
 
       .slideCaptchaLoading {
         position: absolute;
@@ -43,6 +46,10 @@
         margin: auto;
       }
     }
+  }
+
+  .hoverPanelDefault {
+    height: 310px;
   }
 
   .control {
