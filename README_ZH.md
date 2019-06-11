@@ -63,7 +63,7 @@ import 'react-slide-captcha/dist/styles.css';
 | **robotValidate**| 机器人校验配置（可选） | object: {  offsetY: number, handler: () => any,} | - |
 | **reset**| 组件刷新方式（可选） | string | auto |
 | **resetButton**| reset组件显示类型 **none/inline/outline**（可选） | JSX.Element | 'auto' |
-| **resetButtonElement**| reset 组件元素（可选） | string | auto |
+| **resetButtonElement**| reset 组件元素（可选） | string | '默认重置按钮元素' |
 | **onReset**| 组件刷新回调（可选） | () => any | - |
 | **imagePosition**| 图片显示位置 **top/bottom** （可选） | string | 'bottom' |
 | **isLoading**| 加载状态（可选） | boolean | false |
@@ -74,7 +74,7 @@ import 'react-slide-captcha/dist/styles.css';
 
 ## 4 License
 
-整个项目是基于 MIT license
+MIT license
 
 MIT
 

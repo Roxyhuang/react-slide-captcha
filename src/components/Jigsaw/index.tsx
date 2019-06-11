@@ -251,15 +251,7 @@ class SlideCaptcha extends React.Component<IProps, IState>{
         this.props.robotValidate && this.props.robotValidate.handler
           ? this.props.robotValidate.handler()
           : console.log('Please try again');
-        this.setState({
-          offsetX: 0,
-          originX: 0,
-          originY: 0,
-          totalY: 0,
-          isTouchEndSpan: false,
-          isMoving: false,
-          validated: validateStatus.error,
-        });
+        this.resetCaptcha();
         return;
       }
       this.setState({
