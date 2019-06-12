@@ -5,6 +5,8 @@ node_js:
 install:
   - npm install
 script:
+  - npm test -- -u
+  - npm run report-coverage
   - npm run preview
 
 after_script:

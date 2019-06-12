@@ -24,5 +24,12 @@ module.exports = {
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  transformIgnorePatterns
+  transformIgnorePatterns,
+  globals: {
+    'ts-jest': {
+      diagnostics: {
+        ignoreCodes: [2341,2345]
+      }
+    }
+  }
 };

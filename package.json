@@ -95,7 +95,7 @@
   },
   "main": "dist/slideCaptcha.min.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --color  --coverage",
     "start": "webpack-dev-server --mode development --hot --progress --colors --port 3000 --open",
     "preview": "webpack -p --progress --colors --pv",
     "build": "webpack -p --progress --colors",
