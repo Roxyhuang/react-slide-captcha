@@ -3,7 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/Roxyhuang/react-slide-captcha.svg)
 [![Build Status](https://travis-ci.org/boennemann/badges.svg?branch=master)](https://travis-ci.org/boennemann/badges)
 [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
-
+[![codecov](https://codecov.io/gh/Roxyhuang/react-slide-captcha/branch/master/graph/badge.svg)](https://codecov.io/gh/Roxyhuang/react-slide-captcha)
 ## 1.如何使用
 
 ### (1) 安装
