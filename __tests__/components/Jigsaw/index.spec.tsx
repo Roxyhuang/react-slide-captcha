@@ -19,7 +19,6 @@ test('Test DefaultProps.', async () => {
 
 test('calls componentWillReceiveProps',async () => {
   const componentWillReceivePropsSpy = jest.spyOn(SlideCaptcha.prototype, 'componentWillReceiveProps');
-  // if reset = manual
   let wrapper = await mount(
     <SlideCaptcha
 
@@ -35,9 +34,8 @@ test('calls componentWillReceiveProps',async () => {
   );
   wrapper.mount();
   expect(SlideCaptcha.prototype.componentWillReceiveProps).toHaveBeenCalled();
-  // // if reset = auto
   wrapper.setProps({ reset: 'auto' });
-  wrapper.mount();
+  wrapper.update();
   expect(SlideCaptcha.prototype.componentWillReceiveProps).toHaveBeenCalled();
   componentWillReceivePropsSpy.mockRestore();
 });
@@ -56,42 +54,7 @@ test('calls componentWillUnmount',async () => {
     />
   );
   wrapper.unmount();
-  expect(SlideCaptcha.prototype.componentWillUnmount).toHaveBeenCalledTimes(1);
-});
-
-test('calls component resetCaptcha', async() => {
-  // const wrapper = mount(<SlideCaptcha
-  //   displayType="hover"
-  //   puzzleUrl="www.baidu.com"
-  //   bgUrl="www.baidu.com"
-  //   onRequest={() => console.log(123)}
-  //   containerClassName="test"
-  //   tipsText="请向右滑动滑块填充拼图"
-  //   style={{width: '500px'}}
-  // />);
-  // const spyFunction = jest.spyOn(wrapper.instance(), 'resetCaptcha');
-  // spyFunction.mockRestore();
-});
-
-test('call function', () => {
-  // const wrapper = mount(<SlideCaptcha
-  //   displayType="hover"
-  //   puzzleUrl="www.baidu.com"
-  //   bgUrl="www.baidu.com"
-  //   onRequest={() => console.log(123)}
-  //   containerClassName="test"
-  //   tipsText="请向右滑动滑块填充拼图"
-  //   style={{width: '500px'}}
-  // />);
-  // const spyFunction = jest.spyOn(wrapper.instance(), 'handlerMouseDown');
-  // const spyFunction1 = jest.spyOn(wrapper.instance(), 'listenMouseUp');
-  // const spyFunction2 = jest.spyOn(wrapper.instance(), 'listenMouseMove');
-  // const event = {target: {name: "pollName", value: "spam", preventDefault: () => console.log(123)}};
-  // wrapper.find('.slider').at(0).simulate('click');
-  // expect(spyFunction(event)).toHaveBeenCalledTimes(1);
-  // spyFunction.mockRestore();
-  // spyFunction1.mockRestore();
-  // spyFunction2.mockRestore();
+  expect(SlideCaptcha.prototype.componentWillUnmount).toHaveBeenCalled();
 });
 
 test('change state', () => {
@@ -113,9 +76,8 @@ test('change state', () => {
   wrapper.mount();
 });
 
-test('test displayType hover', () => {
+test('Test Props render', () => {
   const wrapper = mount(<SlideCaptcha
-    displayType="hover"
     puzzleUrl="www.baidu.com"
     bgUrl="www.baidu.com"
     onRequest={() => console.log(123)}
@@ -126,16 +88,28 @@ test('test displayType hover', () => {
     resetButtonElement={<div>123</div>}
   />);
 
+  wrapper.setProps({displayType: 'hover'});
+  wrapper.setProps({imagePosition: 'top'});
   wrapper.mount();
-  wrapper.setState({isMoving: true});
+  expect(wrapper.props().displayType).toEqual('hover');
+  expect(wrapper.props().imagePosition).toEqual('top');
   wrapper.setProps({isLoading: true});
-  wrapper.setState({isMoving: false});
-  wrapper.setProps({isLoading: true});
+  wrapper.update();
+  expect(wrapper.find('.loadingContainer').exists()).toEqual(true);
+  wrapper.setProps({displayType: 'static'});
+  wrapper.setProps({imagePosition: 'bottom'});
+  wrapper.update();
+  expect(wrapper.props().displayType).toEqual('static');
+  expect(wrapper.props().imagePosition).toEqual('bottom');
   wrapper.setProps({resetButton: 'outline'});
+
+  wrapper.update();
   wrapper.setProps({resetButton: 'inline'});
+  wrapper.update();
+  wrapper.unmount();
 });
 
-test('test displayType static', () => {
+test('test displayType static render', () => {
   const wrapper = mount(<SlideCaptcha
     displayType="static"
     puzzleUrl="www.baidu.com"
@@ -146,7 +120,6 @@ test('test displayType static', () => {
     style={{width: '500px'}}
     imagePosition="top"
   />);
-
   wrapper.mount();
   wrapper.setState({isMoving: true});
   wrapper.setProps({isLoading: true});

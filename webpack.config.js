@@ -42,7 +42,7 @@ webpackConfig = {
         test: /\.tsx?$/,
         use: isProduction
             ? 'ts-loader'
-            : ['babel-loader?plugins=react-hot-loader/babel', 'ts-loader']
+            : ['babel-loader', 'ts-loader']
       },
 
       {
@@ -143,7 +143,6 @@ if (!isProduction && !isPreview) {
               require('postcss-import')({ addDependencyTo: webpack }),
               require('postcss-url')(),
               require('autoprefixer')({
-                browsers: pkg.browserslist,
                 flexbox: true,
               }),
               require('postcss-reporter')(),

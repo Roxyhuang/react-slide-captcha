@@ -1,92 +1,22 @@
 /// <reference path='../../../types/global.d.ts'/>
 
 import * as React from 'react';
+import {
+  validateStatus,
+  imgDisplayStatus,
+  resetTypeMap,
+  positionStringMap,
+  resetButtonMap,
+  displayTypeMap,
+  IProps,
+  IState
+} from './index.d';
 import './styles/index.less';
 import * as loading from '../../assets/img/loading.svg';
 import * as arrow from '../../assets/img/arrow.svg';
 import * as arrow_white from '../../assets/img/arrow_white.svg';
 import * as cross from '../../assets/img/cross.svg';
 import * as reload from '../../assets/img/reload_white.svg';
-
-enum validateStatus{
-  init = 0,
-  success = 1,
-  error = -1,
-}
-
-enum imgDisplayStatus {
-  show =  'block',
-  hidden = 'none',
-}
-
-enum resetTypeMap {
-  auto = 'auto',
-  manual = 'manual',
-}
-
-enum positionStringMap {
-  top =  'top',
-  bottom = 'bottom',
-}
-
-enum resetButtonMap {
-  none = 'none',
-  inline = 'inline',
-  outline = 'outline',
-}
-
-enum displayTypeMap {
-  hover = 'hover',
-  static = 'static',
-}
-
-type robotValidateConfig =  {
-  offsetY: number,
-  handler: () => any,
-};
-
-interface IProps {
-  readonly puzzleUrl: string;
-  readonly bgUrl: string;
-  readonly onRequest: (validateValue: number,
-                       validatedSuccess: any,
-                       validatedFail?: any,
-                       resetCaptcha?: any,
-                      ) => void;
-  readonly slidedImage?: any;
-  readonly slidedImageMoving?: any;
-  readonly slidedImageSuccess?: any;
-  readonly slidedImageError?: any;
-  readonly containerClassName?: string;
-  readonly tipsClassName?: string;
-  readonly tipsStyle? : object;
-  readonly style?: object;
-  readonly tipsText?: string;
-  readonly robotValidate?: robotValidateConfig;
-  readonly resetButton?: string;
-  readonly resetButtonElement?: JSX.Element | string;
-  readonly reset?: string;
-  readonly onReset?: () => any;
-  readonly imagePosition?: string;
-  readonly loadingIcon? : JSX.Element  | string;
-  readonly isLoading?: boolean;
-  readonly displayType?: string;
-  readonly hoverPanelStyle?: object;
-  readonly hoverPanelClassName?: string;
-}
-
-interface IState {
-  originX: number;
-  offsetX: number;
-  originY: number;
-  totalY: number;
-  validated: validateStatus;
-  isMoving: boolean;
-  isTouchEndSpan: boolean;
-  imgDisplayStatus: imgDisplayStatus;
-  otherHeight: number;
-  isSliderHover: boolean;
-}
 
 class SlideCaptcha extends React.Component<IProps, IState>{
   public static defaultProps = {
