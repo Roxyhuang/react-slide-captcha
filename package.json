@@ -18,7 +18,7 @@
     "node": ">= 8.9.1"
   },
   "peerDependencies": {
-    "react": "~0.13.x || ~0.14.x || ^15.0.0 || ^16.0.0"
+    "react": "~0.13.x || ~0.14.x || ^15.0.0 || ^16.0.0||^17.0.2"
   },
   "dependencies": {},
   "devDependencies": {
